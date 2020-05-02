@@ -29,7 +29,7 @@ export default new Vuex.Store({
       if (user) {
         commit("SET_USER", {
           email: user.email,
-          firstName: user.firstName
+          displayName: user.displayName
         });
       } else {
         commit("SET_USER", null);

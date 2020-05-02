@@ -2,7 +2,7 @@
   <div>
     workbench
     {{user.data.email}}
-    {{user.data.firstName}}
+    {{user.data.displayName}}
     <ul>
       <li>i1</li>
       <li>i2</li>
