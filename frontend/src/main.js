@@ -7,6 +7,9 @@ import firebaseConfig from './firebaseConfig';
 
 Vue.config.productionTip = false;
 
+// Importing the global css file
+import "@/assets/scss/main.scss"
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 

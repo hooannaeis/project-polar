@@ -1,19 +1,11 @@
-import firebase from 'firebase';
 import Vue from 'vue';
 import store from '../store'
 import VueRouter from 'vue-router';
 
-import Home from '../views/Home.vue';
-import { install } from 'vuex';
 
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
   {
     path: '/sign-up',
     name: 'Sign Up',

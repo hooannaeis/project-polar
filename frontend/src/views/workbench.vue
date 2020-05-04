@@ -1,39 +1,35 @@
 <template>
   <div>
-    workbench
-    {{user.data.email}}
-    {{user.data.displayName}}
-    <ul>
-      <li>i1</li>
-      <li>i2</li>
-      <li>i3</li>
-    </ul>
-    <div>
-      <button @click="logout">log out</button>
-    </div>
+    <workbenchHeader />
+    <createIdentity />
+    <identityCard
+      v-bind:identity="exampleIdentity"
+    />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import firebase from 'firebase';
+import workbenchHeader from '../components/workbenchHeader';
+import identityCard from '../components/identityCard';
+import createIdentity from '../components/createIdentity';
 
 export default {
-  methods: {
-    logout: function() {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          this.$router.replace('log-in');
-        });
-    }
+  components: {
+    identityCard,
+    workbenchHeader,
+    createIdentity
   },
-  computed: {
-    // map `this.user` to `this.$store.getters.user`
-    ...mapGetters({
-      user: 'user'
-    })
+  data() {
+    return {
+      exampleIdentity: {
+        destinationMail: 'something@live.de',
+        identityName: 'Amazon',
+        password: 'awieoasdfzu24',
+        receiveMail: 'asdfasdf@hannes.cool',
+        redirectActive: true,
+        userId: 'YJh2VkodYVgYmiNUtfp5PIrlZ7g1'
+      }
+    };
   }
 };
 </script>

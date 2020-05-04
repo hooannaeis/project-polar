@@ -1,8 +1,10 @@
-const functions = require('firebase-functions');
-
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+
+const getFriendlyName = require('./src/getFriendlyName');
+exports.getFriendlyName = getFriendlyName.main;
+
+const getIdentityEmail = require('./src/getIdentityEmail');
+exports.getIdentityEmail = getIdentityEmail.main;
+
