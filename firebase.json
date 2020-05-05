@@ -9,7 +9,7 @@
     ]
   },  
   "hosting": {
-    "public": "frontend/dist",
+    "public": "./frontend/dist",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -24,7 +24,7 @@
   },
   "emulators": {
     "functions": {
-      "port": 5001
+      "port": 5000
     }
   }
 }
