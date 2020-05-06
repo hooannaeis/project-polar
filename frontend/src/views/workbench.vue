@@ -2,9 +2,12 @@
   <div>
     <workbenchHeader />
     <createIdentity />
-    <identityCard
-      v-bind:identity="exampleIdentity"
-    />
+    <div v-if="identities.length">
+      <section v-for="identity in identities" :key="identity['.key']">
+        <identityCard :identity="identity" />
+      </section>
+    </div>
+    <identityCard v-else :identity="exampleIdentity" />
   </div>
 </template>
 
@@ -12,6 +15,9 @@
 import workbenchHeader from '../components/workbenchHeader';
 import identityCard from '../components/identityCard';
 import createIdentity from '../components/createIdentity';
+
+import { db } from '../main';
+import store from '../store';
 
 export default {
   components: {
@@ -21,14 +27,22 @@ export default {
   },
   data() {
     return {
+      identities: [],
       exampleIdentity: {
-        destinationMail: 'something@live.de',
-        identityName: 'Amazon',
-        password: 'awieoasdfzu24',
-        receiveMail: 'asdfasdf@hannes.cool',
-        redirectActive: true,
-        userId: 'YJh2VkodYVgYmiNUtfp5PIrlZ7g1'
+        destinationMail: '',
+        identityName: 'No identities available',
+        password: '',
+        receiveMail: '',
+        redirectActive: false,
       }
+    };
+  },
+  firestore() {
+    console.log(store.getters.user);
+    return {
+      identities: db
+        .collection('identities')
+        .where('userId', '==', store.getters.user.data.userId)
     };
   }
 };

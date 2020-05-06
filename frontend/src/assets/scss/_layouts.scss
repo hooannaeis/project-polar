@@ -55,4 +55,12 @@
     background-color: $colorPrimary;
     color: $colorDark;
   }
+  &--warn {
+    background-color: $colorWarning;
+    color: $colorBright;
+  }
+  &--ghost {
+    border: 1px solid $colorBright;
+    color: $colorBright;
+  }
 }

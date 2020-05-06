@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="btn btn--accent" v-if="!inCreateMode" @click="enterCreateMode" id="createButton">+</div>
-    <div class="modal__container" v-else>
+    <div class="modal__container" v-show="inCreateMode">
       <div class="modal__background"></div>
-      <identityCard class="modal__card" :isEditable="true"/>
+      <identityCard class="modal__card" :isEditable="true" @leaveCreateMode="inCreateMode = false" />
     </div>
   </div>
 </template>

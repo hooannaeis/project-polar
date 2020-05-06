@@ -4,7 +4,7 @@
     <div>
       <input type="email" v-model="email" placeholder="email@domain.com" />
       <input type="text" v-model="displayName" placeholder="First name" />
-      <input type="password" v-model="password" placeholder="password" />
+      <input type="password" v-model="password" placeholder="password" @keyup.enter="signUp" />
       <button @click="signUp">sign up</button>
     </div>
     <div>

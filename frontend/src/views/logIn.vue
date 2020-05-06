@@ -3,8 +3,8 @@
     <h1>log in</h1>
     <div>
       <input type="email" v-model="email" placeholder="email@domain.com" />
-      <input type="password" v-model="password" placeholder="password" />
-      <button @click="login">sign up</button>
+      <input type="password" v-model="password" placeholder="password" @keyup.enter="login" />
+      <button @click="login">log in</button>
     </div>
     <div>
       dont have an account?

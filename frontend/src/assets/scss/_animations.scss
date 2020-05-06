@@ -1,0 +1,28 @@
+/* base */
+.grow {
+  backface-visibility: hidden;
+  z-index: 1;
+}
+
+/* moving */
+.grow-move {
+  transition: all 600ms ease-in-out 50ms;
+}
+
+/* appearing */
+.grow-enter-active {
+  transition: all 400ms ease-out;
+}
+
+/* disappearing */
+.grow-leave-active {
+  transition: all 200ms ease-in;
+  position: absolute;
+  z-index: 0;
+}
+
+/* appear at / disappear to */
+.grow-enter,
+.grow-leave-to {
+  opacity: 0;
+}
