@@ -8,3 +8,6 @@ exports.getFriendlyName = getFriendlyName.main;
 const getIdentityEmail = require('./src/getIdentityEmail');
 exports.getIdentityEmail = getIdentityEmail.main;
 
+const exposeRedirectList = require('./src/exposeRedirectList');
+exports.exposeRedirectList = exposeRedirectList.main;
+

@@ -1,5 +1,7 @@
 $colorPrimary: #2dea8f;
+$colorPrimaryDark: darken($colorPrimary, 8%);
 $colorWarning: rgb(161, 17, 17);
+$colorWarningDark: darken($colorWarning, 8%);
 
 $colorDark: #243d44;
 $colorDarkDark: darken($colorDark, 8%);
@@ -15,6 +17,11 @@ $colorMap: (
   colorBright: #E0E2DB,
   colorWarning: rgb(161, 17, 17),
 );
+
+$gradientPrimary: linear-gradient(-90deg, $colorPrimary, $colorPrimaryDark);
+$gradientWarning: linear-gradient(-90deg, $colorWarning, $colorWarningDark);
+$gradientBright: linear-gradient(-90deg, $colorBright, $colorBrightDark);
+$gradientDark: linear-gradient(to right, $colorDark 25%, $colorDarkDark 50%, $colorDarkBright 75%);
 
 $phoneBreakpoint: 480px;
 $tabletBreakpoint: 800px;

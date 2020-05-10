@@ -7,6 +7,14 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: '/hello',
+    name: 'Welcome',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/hello.vue')
+  },
+  {
     path: '/sign-up',
     name: 'Sign Up',
     // route level code-splitting
@@ -26,6 +34,11 @@ const routes = [
     meta: {
       requiresAuth: true
     }
+  },
+  {
+    path: '*',
+    name: '404',
+    component: () => import(/* webpackChunkName: "about" */ '../views/error.vue')
   },
 ];
 

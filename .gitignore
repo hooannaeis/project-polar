@@ -104,3 +104,6 @@ dist
 .tern-port
 frontend/src/firebaseConfig.js
 hosting.*cache
+
+# secrets
+*client_secret*

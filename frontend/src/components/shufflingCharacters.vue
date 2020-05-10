@@ -12,10 +12,11 @@
 export default {
   data() {
     return {
-      randomCharacters: 'random',
+      randomCharacters: 'random'.split(''),
       characterBase: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?=#@'.split(
         ''
-      )
+      ),
+      randomizerInterval: undefined
     };
   },
   props: {
@@ -33,14 +34,17 @@ export default {
     },
     initRandomizer: function() {
       let self = this;
-      setInterval(function() {
+      this.randomizerInterval = setInterval(function() {
         let randomChars = self.shuffle(self.characterBase)
-        self.randomCharacters = randomChars.slice(0, Number(this.maxCharacterCount));
+        self.randomCharacters = randomChars.slice(0, Number(self.maxCharacterCount));
       }, 300)
     }
   },
-  mounted() {
+  beforeCreate() {
     this.initRandomizer();
+  },
+  destroyed() {
+    clearInterval(this.randomizerInterval);
   }
 };
 </script>

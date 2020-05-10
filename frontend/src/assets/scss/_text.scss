@@ -1,0 +1,46 @@
+a {
+  text-decoration: none;
+  color: $colorDark;
+  border-bottom: 1px dotted $colorDark;
+  transition: all 0.5s;
+  padding: 0.3rem;
+  &:hover {
+    border-bottom: none;
+    background: $colorDark;
+    color: $colorBright;
+  }
+}
+
+input[type="url"],
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  border: none;
+  border-bottom: 1px dotted $colorBright;
+  color: $colorBright;
+  padding: .8rem;
+  margin: 0px;
+  width: 94%;
+  font-size: 1rem;
+  background: transparent;
+};
+
+input[type="url"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus{
+  outline: none;
+};
+
+input[type="url"]:valid,
+input[type="email"]:valid,
+input[type="password"]:valid,
+input[type="text"]:valid{
+  border-bottom: 4px solid $colorPrimary;
+};
+
+.txt {
+  --warning {
+    color: $colorWarning;
+  }
+}

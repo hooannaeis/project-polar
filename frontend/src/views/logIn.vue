@@ -1,14 +1,23 @@
 <template>
   <div>
-    <h1>log in</h1>
-    <div>
-      <input type="email" v-model="email" placeholder="email@domain.com" />
-      <input type="password" v-model="password" placeholder="password" @keyup.enter="login" />
-      <button @click="login">log in</button>
+    <div class="card__container">
+      <h1 class="card__heading">Welcome back, mate</h1>
+      <p class="txt--warning" v-if="errors.authFail">{{errors.authFail}}</p>
+      <div>
+        <input type="email" required v-model="email" placeholder="email@domain.com" />
+        <input
+          type="password"
+          required
+          v-model="password"
+          placeholder="password"
+          @keyup.enter="login"
+        />
+        <button class="btn btn--primary" @click="login">Log In</button>
+      </div>
     </div>
     <div>
-      dont have an account?
-      <router-link to="/sign-up">sign up</router-link>
+      You don't have an account yet?
+      <router-link to="/sign-up">Sign up</router-link>
     </div>
   </div>
 </template>
@@ -20,11 +29,15 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      errors: {
+        authFail: null
+      }
     };
   },
   methods: {
     login: function() {
+      this.errors.authFail = null;
       let self = this;
 
       firebase
@@ -45,7 +58,7 @@ export default {
                 self.$router.replace('workbench');
               },
               err => {
-                alert('Oops. ' + err.message);
+                self.errors.authFail = 'Oops. ' + err.message;
               }
             );
         })

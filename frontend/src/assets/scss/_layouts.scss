@@ -4,6 +4,7 @@
   }
   &__card {
     position: absolute;
+    border: 2px solid red;
     top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -13,6 +14,18 @@
     height: 100vh;
     background: $colorDark;
     opacity: 0.5;
+  }
+}
+
+.abs {
+  position: absolute;
+  &--tl {
+    top: 0.5rem;
+    left: 0.5rem;
+  }
+  &--tr {
+    top: 0.5rem;
+    right: 0.5rem;
   }
 }
 
@@ -46,21 +59,63 @@
 }
 
 .btn {
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
   cursor: pointer;
   padding: 1rem;
+  margin: 1rem;
   text-align: center;
   display: inline-block;
   border-radius: 0.5rem;
-  &--accent {
-    background-color: $colorPrimary;
-    color: $colorDark;
+
+  &--is-mini {
+    padding: 0.1rem;
   }
-  &--warn {
-    background-color: $colorWarning;
+
+  &--primary {
+    border: none;
+    color: $colorDark;
+    background-color: $colorPrimary;
+    &:hover {
+      background-image: $gradientPrimary;
+    }
+  }
+  &--warning {
+    border: none;
     color: $colorBright;
+    background-color: $colorWarning;
+    &:hover {
+      background-image: $gradientWarning;
+    }
   }
   &--ghost {
-    border: 1px solid $colorBright;
     color: $colorBright;
+    background-color: transparent;
+    border: 1px solid $colorBright;
+    &:hover {
+      background-color: $colorBright;
+    }
+  }
+  &--bright {
+    border: none;
+    color: $colorDark;
+    background-color: $colorBright;
+    &:hover {
+      background-image: $gradientBright;
+    }
+  }
+  &:disabled {
+    background-color: #dddd;
+    color: $colorDark;
+    &:hover {
+      cursor: not-allowed;
+      background-color: #dddd;
+      color: $colorDark;
+    }
+  }
+  &:focus {
+    outline: 0;
   }
 }

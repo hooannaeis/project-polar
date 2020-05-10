@@ -26,7 +26,7 @@ async function getFriendlyMail() {
       throw error;
     });
   // TODO: the domain should one day also be random
-  console.log(friendlyMail)
+  console.log(friendlyMail);
   return `${friendlyMail}@hannes.cool`;
 }
 
@@ -39,20 +39,20 @@ async function getFriendlyMail() {
 async function checkMailExistence(mail) {
   let mailExists = await firestore
     .collection(config.collectionName)
-    .doc(mail)
+    .where('receiveMail', '==', mail)
     .get()
-    .then((doc) => {
-      console.log(doc);
-      if (!(doc && doc.exists)) {
+    .then((snapshot) => {
+      if (snapshot.empty) {
+        return false;
+      } else {
         return true;
       }
-      return false;
     })
     .catch((err) => {
-      console.error(err);
-      throw err;
+      console.err(err);
+      return false;
     });
-    return mailExists;
+  return mailExists;
 }
 
 /**
