@@ -19,9 +19,13 @@
 
     <!-- card in edit mode -->
     <div class="card__container" v-else @keyup.esc="leaveCreateMode" tabindex="0">
+      <p v-if="errors.identityName" class="txt--warning">{{errors.identityName}}</p>
       <input
         type="text"
         class="card__heading"
+        required
+        pattern=".*"
+        ref="identityNameInput"
         :placeholder="placeholderIdentity.identityName"
         v-model="identity.identityName"
       />
@@ -32,8 +36,8 @@
         <div v-else>
           <div>{{identity.receiveMail}}</div>
         </div>
-        <div class="btn btn--ghost">copy</div>
-        <div class="btn btn--ghost" @click="setRandomMail">create new</div>
+        <button class="btn btn--ghost">copy</button>
+        <button class="btn btn--ghost" @click="setRandomMail">create new</button>
       </div>
       <div class="container--flex-vertical">
         <div>redirect active:</div>
@@ -46,14 +50,14 @@
         <div v-else>
           <div>{{identity.password}}</div>
         </div>
-        <div class="btn btn--ghost">copy</div>
-        <div class="btn btn--ghost" @click="setRandomPassword">create new</div>
+        <button class="btn btn--ghost">copy</button>
+        <button class="btn btn--ghost" @click="setRandomPassword">create new</button>
         <!-- <div>{{identity.password}}</div>
         <div>copy</div>-->
       </div>
       <div class="container--flex-vertical">
-        <div class="btn btn--ghost" @click="leaveCreateMode">discard</div>
-        <div class="btn btn--accent" @click="storeNewIdentity">save</div>
+        <button class="btn btn--ghost" @click="leaveCreateMode">discard</button>
+        <button class="btn btn--primary" @click="storeNewIdentity">save</button>
       </div>
     </div>
   </div>
@@ -79,6 +83,9 @@ export default {
         password: 'examplePassword',
         receiveMail: 'randommail@hannes.cool',
         redirectActive: true
+      },
+      errors: {
+        identityName: null
       }
     };
   },
@@ -122,10 +129,22 @@ export default {
     },
     storeNewIdentity() {
       console.log('storing new identity');
-      console.log(this);
+
+      // FORM VALIDATION
+      if (this.identity.identityName.length === 0) {
+        this.errors.identityName = 'Give a name to this identity';
+        this.$refs['identityNameInput'].focus();
+        return;
+      } else {
+        // reset errors if nothing is wrong
+        // just in case any have been set
+        this.errors.identityName = null;
+      }
+      // FORM VALIDATION
+      
       db.collection('identities')
         .add({
-          destinationMail: this.identity.destinationMail,
+          destinationMail: store.getters.user.data.email,
           identityName: this.identity.identityName,
           password: this.identity.password,
           receiveMail: this.identity.receiveMail,

@@ -1,6 +1,7 @@
 .modal {
   &__container {
     position: fixed;
+    z-index: 2;
   }
   &__card {
     position: absolute;
@@ -96,6 +97,7 @@
     border: 1px solid $colorBright;
     &:hover {
       background-color: $colorBright;
+      color: $colorDark;
     }
   }
   &--bright {

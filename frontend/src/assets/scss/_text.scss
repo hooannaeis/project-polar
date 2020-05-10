@@ -40,7 +40,7 @@ input[type="text"]:valid{
 };
 
 .txt {
-  --warning {
+  &--warning {
     color: $colorWarning;
   }
 }

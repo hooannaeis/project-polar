@@ -40,7 +40,8 @@ export default {
       }, 300)
     }
   },
-  beforeCreate() {
+  mounted() {
+    console.log(this);
     this.initRandomizer();
   },
   destroyed() {
