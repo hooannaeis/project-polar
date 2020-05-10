@@ -18,12 +18,12 @@ jobs:
       - name: Install Dependencies
         run: cd frontend/ && npm install
       - name: Build
-        run: npm run build
+        run: cd frontend/ && npm run build
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
           name: dist
-          path: dist
+          path: frontend/dist
 
   deploy:
     name: deploy
@@ -39,6 +39,6 @@ jobs:
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting
+          args: deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
