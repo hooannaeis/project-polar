@@ -60,4 +60,8 @@ router.beforeEach((to, from, next) => {
   else next();
 });
 
+router.afterEach((to, from) => {
+  document.title = to.meta.name;
+});
+
 export default router;
