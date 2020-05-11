@@ -1,8 +1,8 @@
 <template>
   <transition-group name="grow" tag="p">
     <span
-      v-for="randChar in randomCharacters"
-      v-bind:key="randChar"
+      v-for="(randChar, index) in randomCharacters"
+      v-bind:key="randChar+index"
       class="grow"
     >{{ randChar }}</span>
   </transition-group>
@@ -12,16 +12,18 @@
 export default {
   data() {
     return {
-      randomCharacters: 'random'.split(''),
+      randomCharacters: this.startText.split(''),
       characterBase: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?=#@'.split(
         ''
       ),
-      randomizerInterval: undefined
+      randomizerInterval: undefined,
+      maxCharacterCount: this.startText.length
     };
   },
   props: {
-    maxCharacterCount: {
-      default: 15
+    startText: {
+      default: 'random text',
+      type: String
     }
   },
   methods: {

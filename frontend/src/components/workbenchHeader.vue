@@ -2,7 +2,7 @@
   <div class="container--flex-vertical">
     <h1>{{user.data.displayName}}'s workbench</h1>
     <div>
-      <button @click="logout">log out</button>
+      <button class="btn btn--warning" @click="logout">log out</button>
     </div>
   </div>
 </template>

@@ -55,7 +55,7 @@ export default {
             .signInWithEmailAndPassword(self.email, self.password)
             .then(
               user => {
-                self.$router.replace('workbench');
+                self.$router.push({ path: 'workbench' })
               },
               err => {
                 self.errors.authFail = 'Oops. ' + err.message;
