@@ -2,23 +2,28 @@
   <div>
     <!-- card in display mode -->
     <div class="card__container" style="position: relative;" v-if="!isEditable">
+      <button class="btn--ghost abs abs--tr" @click="enterEditMode">edit</button>
       <h2 class="card__heading">{{identity.identityName}}</h2>
       <div class="container--flex-vertical card__textbox">
-        <div>{{identity.receiveMail}}</div>
-        <div>copy</div>
+        <copyText :inputText="identity.receiveMail"></copyText>
       </div>
       <div class="container--flex-vertical">
         <div>redirect active:</div>
-        <input type="checkbox" id="checkbox" v-model="identity.redirectActive" />
+        <input type="checkbox" id="checkbox" v-model="identity.redirectActive" disabled />
       </div>
       <div class="container--flex-vertical card__textbox">
-        <div>{{identity.password}}</div>
-        <div>copy</div>
+        <copyText :inputText="identity.password" :textIsVisible="false"></copyText>
       </div>
     </div>
 
     <!-- card in edit mode -->
-    <div class="card__container" v-else @keyup.esc="leaveCreateMode" tabindex="0">
+    <div
+      class="card__container"
+      style="position: relative;"
+      v-else
+      @keyup.esc="leaveCreateMode"
+      tabindex="0"
+    >
       <p v-if="errors.identityName" class="txt--warning">{{errors.identityName}}</p>
       <input
         type="text"
@@ -31,12 +36,11 @@
       />
       <div class="container--flex-vertical card__textbox">
         <div v-if="mailLoading">
-          <shufflingCharacters maxCharacterCount="15" />
+          <shufflingCharacters maxCharacterCount="15" :startText="identity.receiveMail" />
         </div>
         <div v-else>
-          <div>{{identity.receiveMail}}</div>
+          <copyText :inputText="identity.receiveMail"></copyText>
         </div>
-        <button class="btn btn--ghost">copy</button>
         <button class="btn btn--ghost" @click="setRandomMail">create new</button>
       </div>
       <div class="container--flex-vertical">
@@ -45,19 +49,16 @@
       </div>
       <div class="container--flex-vertical card__textbox">
         <div v-if="passLoading">
-          <shufflingCharacters maxCharacterCount="15" />
+          <shufflingCharacters maxCharacterCount="15" :startText="identity.password" />
         </div>
         <div v-else>
-          <div>{{identity.password}}</div>
+          <copyText :inputText="identity.password"></copyText>
         </div>
-        <button class="btn btn--ghost">copy</button>
         <button class="btn btn--ghost" @click="setRandomPassword">create new</button>
-        <!-- <div>{{identity.password}}</div>
-        <div>copy</div>-->
       </div>
       <div class="container--flex-vertical">
         <button class="btn btn--ghost" @click="leaveCreateMode">discard</button>
-        <button class="btn btn--primary" @click="storeNewIdentity">save</button>
+        <button class="btn btn--primary" @click="setIdentity">save</button>
       </div>
     </div>
   </div>
@@ -66,15 +67,18 @@
 <script>
 import axios from 'axios';
 import shufflingCharacters from './shufflingCharacters';
+import copyText from './copyText';
 import store from '../store';
 import { db } from '../main';
 
 export default {
   components: {
-    shufflingCharacters
+    shufflingCharacters,
+    copyText
   },
   data() {
     return {
+      isEditable: this.isEditableProp,
       mailLoading: false,
       passLoading: false,
       placeholderIdentity: {
@@ -90,7 +94,7 @@ export default {
     };
   },
   props: {
-    isEditable: {
+    isEditableProp: {
       type: Boolean,
       default: false
     },
@@ -108,6 +112,9 @@ export default {
     }
   },
   methods: {
+    enterEditMode() {
+      this.isEditable = true;
+    },
     setRandomPassword() {
       this.passLoading = true;
       var length = 15,
@@ -124,8 +131,49 @@ export default {
       }, 500);
     },
     leaveCreateMode() {
+      this.isEditable = false;
       console.log('leaving create mode');
       this.$emit('leaveCreateMode');
+    },
+    setIdentity() {
+      if (this.identity['.key']) {
+        this.updateIdentity();
+      } else {
+        this.storeNewIdentity();
+      }
+    },
+    updateIdentity() {
+      console.log('updating identity');
+      // FORM VALIDATION
+      if (this.identity.identityName.length === 0) {
+        this.errors.identityName = 'Give a name to this identity';
+        this.$refs['identityNameInput'].focus();
+        return;
+      } else {
+        // reset errors if nothing is wrong
+        // just in case any have been set
+        this.errors.identityName = null;
+      }
+      // FORM VALIDATION
+      const identityKey = this.identity['.key'];
+      const identityRef = db.collection('identities').doc(identityKey);
+      identityRef
+        .set(
+          {
+            identityName: this.identity.identityName,
+            password: this.identity.password,
+            receiveMail: this.identity.receiveMail,
+            redirectActive: this.identity.redirectActive
+          },
+          { merge: true }
+        )
+        .then(() => {
+          this.leaveCreateMode();
+        })
+        .catch(err => {
+          this.errors.identityName = err;
+          return;
+        });
     },
     storeNewIdentity() {
       console.log('storing new identity');
@@ -141,7 +189,7 @@ export default {
         this.errors.identityName = null;
       }
       // FORM VALIDATION
-      
+
       db.collection('identities')
         .add({
           destinationMail: store.getters.user.data.email,
@@ -152,7 +200,11 @@ export default {
           userId: store.getters.user.data.userId
         })
         .then(() => {
-          this.$emit('leaveCreateMode');
+          this.leaveCreateMode();
+        })
+        .catch(err => {
+          this.errors.identityName = err;
+          return;
         });
     },
     setRandomMail() {
