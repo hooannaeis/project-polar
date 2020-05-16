@@ -43,4 +43,7 @@ input[type="text"]:valid{
   &--warning {
     color: $colorWarning;
   }
+  &--is-small {
+    font-size: 0.7rem;
+  }
 }

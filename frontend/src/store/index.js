@@ -1,5 +1,5 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue';
+import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
@@ -11,8 +11,17 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    user(state){
-      return state.user
+    user(state) {
+      return state.user;
+    },
+    userId(state) {
+      if (state.user.data) {
+        return state.user.data.userId;
+      }
+      return null;
+    },
+    isLoggedIn(state) {
+      return state.user.isLoggedIn;
     }
   },
   mutations: {
@@ -25,15 +34,15 @@ export default new Vuex.Store({
   },
   actions: {
     fetchUser({ commit }, user) {
-      commit("SET_LOGGED_IN", user !== null);
+      commit('SET_LOGGED_IN', user !== null);
       if (user) {
-        commit("SET_USER", {
+        commit('SET_USER', {
           email: user.email,
           displayName: user.displayName,
           userId: user.uid
         });
       } else {
-        commit("SET_USER", null);
+        commit('SET_USER', null);
       }
     }
   }

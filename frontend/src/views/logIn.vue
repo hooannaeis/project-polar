@@ -23,7 +23,8 @@
 </template>
 
 <script>
-import firebase from 'firebase';
+import { firebase } from "@firebase/app";
+import "@firebase/auth";
 
 export default {
   data() {
@@ -36,11 +37,11 @@ export default {
     };
   },
   methods: {
-    login: function() {
+    login: async function() {
       this.errors.authFail = null;
       let self = this;
 
-      firebase
+      let user = await firebase
         .auth()
         .setPersistence(firebase.auth.Auth.Persistence.SESSION)
         .then(function() {
@@ -50,24 +51,18 @@ export default {
           // ...
           // New sign-in will be persisted with session persistence.
 
-          firebase
+          return firebase
             .auth()
-            .signInWithEmailAndPassword(self.email, self.password)
-            .then(
-              user => {
-                self.$router.push({ path: 'workbench' })
-              },
-              err => {
-                self.errors.authFail = 'Oops. ' + err.message;
-              }
-            );
+            .signInWithEmailAndPassword(self.email, self.password);
         })
-        .catch(function(error) {
+        .catch(function(err) {
           // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
+          self.errors.authFail = 'Oops. ' + err.message;
           console.log(errorMessage);
         });
+      if (user) {
+        this.$router.push({ path: 'workbench' });
+      }
     }
   }
 };

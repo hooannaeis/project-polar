@@ -1,7 +1,6 @@
 import Vue from 'vue';
-import store from '../store'
+import store from '../store';
 import VueRouter from 'vue-router';
-
 
 Vue.use(VueRouter);
 
@@ -39,7 +38,7 @@ const routes = [
     path: '*',
     name: '404',
     component: () => import(/* webpackChunkName: "about" */ '../views/error.vue')
-  },
+  }
 ];
 
 const router = new VueRouter({
@@ -49,19 +48,15 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const isLoggedIn = Boolean(store.getters.user.isLoggedIn);
+  console.log('router', store.getters.isLoggedIn);
+  const isLoggedIn = store.getters.isLoggedIn;
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  console.log(isLoggedIn, requiresAuth);
-  
-  if (requiresAuth && !isLoggedIn) {
-    console.log('not logged in, redirecting...')
-    next('/log-in')
-  }
-  else next();
-});
 
-router.afterEach((to, from) => {
   document.title = to.name;
+  if (requiresAuth && !isLoggedIn) {
+    console.log('not logged in, redirecting...');
+    next('/log-in');
+  } else next();
 });
 
 export default router;

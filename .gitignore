@@ -103,7 +103,8 @@ dist
 # TernJS port file
 .tern-port
 frontend/src/firebaseConfig.js
-hosting.*.cache
+.firebase/
 
 # secrets
 *client_secret*
+.firebase/hosting.ZnJvbnRlbmRcZGlzdA.cache

@@ -1,5 +1,5 @@
 <template>
-  <div class="container--flex-vertical">
+  <div class="container--flex-vertical container--header">
     <h1>{{user.data.displayName}}'s workbench</h1>
     <div>
       <button class="btn btn--warning" @click="logout">log out</button>
@@ -9,7 +9,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import firebase from 'firebase';
+import { firebase } from "@firebase/app";
+import "@firebase/auth";
 
 export default {
   methods: {

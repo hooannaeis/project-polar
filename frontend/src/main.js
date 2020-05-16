@@ -15,7 +15,7 @@ Vue.config.productionTip = false;
 import "@/assets/scss/main.scss"
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 firebase.auth().onAuthStateChanged(user => {
   store.dispatch("fetchUser", user);
@@ -23,7 +23,7 @@ firebase.auth().onAuthStateChanged(user => {
 
 Vue.use(VueFirestore);
 
-export const db = firebase.firestore();
+export const db = firebaseApp.firestore();
 
 new Vue({
   router,

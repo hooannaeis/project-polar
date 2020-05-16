@@ -2,18 +2,52 @@
   <div>
     <!-- card in display mode -->
     <div class="card__container" style="position: relative;" v-if="!isEditable">
-      <button class="btn--ghost abs abs--tr" @click="enterEditMode">edit</button>
+      <span class="btn--ghost abs abs--tr" @click="enterEditMode">
+        <iconBase iconFillColor="white" icon-name="pen" width="16">
+          <iconPen />
+        </iconBase>
+      </span>
       <h2 class="card__heading">{{identity.identityName}}</h2>
-      <div class="container--flex-vertical card__textbox">
-        <copyText :inputText="identity.receiveMail"></copyText>
-      </div>
-      <div class="container--flex-vertical">
-        <div>redirect active:</div>
-        <input type="checkbox" id="checkbox" v-model="identity.redirectActive" disabled />
-      </div>
-      <div class="container--flex-vertical card__textbox">
-        <copyText :inputText="identity.password" :textIsVisible="false"></copyText>
-      </div>
+      <identityElement>
+        <span slot="pin-parent">
+          <span>
+            <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="iconMail" width="16">
+              <iconMail />
+            </iconBase>
+          </span>
+          <copyText :inputText="identity.receiveMail"></copyText>
+        </span>
+        <span slot="pin-one" class="container--flex-vertical">
+          redirect
+          <label class="checkbox__container">
+            <input type="checkbox" id="checkbox" v-model="identity.redirectActive" disabled />
+            <span class="checkbox__checkmark"></span>
+          </label>
+        </span>
+        <span slot="pin-two">
+          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="iconCopy" width="16">
+            <iconCopy />
+          </iconBase>
+        </span>
+      </identityElement>
+
+      <identityElement>
+        <copyText slot="pin-parent" :inputText="identity.password" :textIsVisible="false"></copyText>
+        <iconBase
+          slot="pin-one"
+          iconFillColor="transparent"
+          strokeWidth="4px"
+          icon-name="iconEye"
+          width="16"
+        >
+          <iconEyeClosed />
+        </iconBase>
+        <span slot="pin-two">
+          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="iconCopy" width="16">
+            <iconCopy />
+          </iconBase>
+        </span>
+      </identityElement>
     </div>
 
     <!-- card in edit mode -->
@@ -45,7 +79,10 @@
       </div>
       <div class="container--flex-vertical">
         <div>redirect active:</div>
-        <input type="checkbox" id="checkbox" v-model="identity.redirectActive" />
+        <label class="checkbox__container">
+          <input type="checkbox" id="checkbox" v-model="identity.redirectActive" />
+          <span class="checkbox__checkmark"></span>
+        </label>
       </div>
       <div class="container--flex-vertical card__textbox">
         <div v-if="passLoading">
@@ -67,6 +104,12 @@
 <script>
 import axios from 'axios';
 import shufflingCharacters from './shufflingCharacters';
+import identityElement from './identityElement';
+import iconBase from './creatives/iconBase';
+import iconPen from './creatives/iconPen';
+import iconMail from './creatives/iconMail';
+import iconCopy from './creatives/iconCopy';
+import iconEyeClosed from './creatives/iconEyeClosed';
 import copyText from './copyText';
 import store from '../store';
 import { db } from '../main';
@@ -74,7 +117,13 @@ import { db } from '../main';
 export default {
   components: {
     shufflingCharacters,
-    copyText
+    copyText,
+    identityElement,
+    iconBase,
+    iconPen,
+    iconCopy,
+    iconMail,
+    iconEyeClosed
   },
   data() {
     return {
@@ -104,8 +153,8 @@ export default {
         return {
           destinationMail: '',
           identityName: '',
-          password: '',
-          receiveMail: '',
+          password: 'placeholder-password',
+          receiveMail: 'placeholder@receive.mail',
           redirectActive: true
         };
       }
