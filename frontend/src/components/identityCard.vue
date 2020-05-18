@@ -10,11 +10,9 @@
       <h2 class="card__heading">{{identity.identityName}}</h2>
       <identityElement>
         <span slot="pin-parent">
-          <span>
-            <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="iconMail" width="16">
-              <iconMail />
-            </iconBase>
-          </span>
+          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="iconMail" width="16">
+            <iconMail />
+          </iconBase>
           <copyText :inputText="identity.receiveMail"></copyText>
         </span>
         <span slot="pin-one" class="container--flex-vertical">
@@ -32,7 +30,12 @@
       </identityElement>
 
       <identityElement>
-        <copyText slot="pin-parent" :inputText="identity.password" :textIsVisible="false"></copyText>
+        <span slot="pin-parent">
+          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="lock" width="16">
+            <iconLock />
+          </iconBase>
+          <copyText :inputText="identity.password" :textIsVisible="false"></copyText>
+        </span>
         <iconBase
           slot="pin-one"
           iconFillColor="transparent"
@@ -110,6 +113,7 @@ import iconPen from './creatives/iconPen';
 import iconMail from './creatives/iconMail';
 import iconCopy from './creatives/iconCopy';
 import iconEyeClosed from './creatives/iconEyeClosed';
+import iconLock from './creatives/iconLock';
 import copyText from './copyText';
 import store from '../store';
 import { db } from '../main';
@@ -123,7 +127,8 @@ export default {
     iconPen,
     iconCopy,
     iconMail,
-    iconEyeClosed
+    iconEyeClosed,
+    iconLock
   },
   data() {
     return {

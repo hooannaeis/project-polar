@@ -5,6 +5,23 @@ html {
   min-width: 100vw;
 }
 
+.dropdown {
+  &__container {
+    position: relative;
+    display: inline-block;
+  }
+  &__content {
+    position: absolute;
+    background: $colorBright;
+    z-index: 1;
+    display: none;
+  }
+}
+
+.show {
+  display: block;
+}
+
 .modal {
   &__container {
     position: fixed;
