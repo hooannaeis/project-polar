@@ -1,11 +1,7 @@
 <template>
   <div class="container--flex-vertical container--header">
-    <input type="text" placeholder="Search..." v-model="searchTerm" />
-    <iconBase iconFillColor="transparent" iconColor="black" icon-name="search" width="30">
-      <iconSearch />
-    </iconBase>
     <span class="dropdown__container">
-      <h1 @click="toggleDropdown">{{user.data.displayName}}</h1>
+      <button @click="toggleDropdown" class="btn btn--ghost-dark">{{user.data.displayName}}</button>
       <div class="dropdown__content" :class="{'show': showDropdown}">
         <button class="btn btn--warning" @click="logout">log out</button>
       </div>
@@ -17,19 +13,13 @@
 import { mapGetters } from 'vuex';
 import { firebase } from '@firebase/app';
 import '@firebase/auth';
-import iconBase from './creatives/iconBase';
-import iconSearch from './creatives/iconSearch';
 
 export default {
   data() {
     return {
       searchTerm: null,
       showDropdown: false
-    }
-  },
-  components: {
-    iconBase,
-    iconSearch
+    };
   },
   methods: {
     logout: function() {

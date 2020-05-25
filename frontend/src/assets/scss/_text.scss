@@ -30,13 +30,14 @@ input[type="email"]:focus,
 input[type="password"]:focus,
 input[type="text"]:focus{
   outline: none;
+  border-bottom: 2px solid $colorBrightDark;
 };
 
 input[type="url"]:valid,
 input[type="email"]:valid,
 input[type="password"]:valid,
 input[type="text"]:valid{
-  border-bottom: 4px solid $colorPrimary;
+  border-bottom: 3px solid $colorPrimary;
 };
 
 .txt {
@@ -45,5 +46,11 @@ input[type="text"]:valid{
   }
   &--is-small {
     font-size: 0.7rem;
+  }
+  &--is-dark {
+    color: $colorDark !important;
+  }
+  &--is-bright {
+    color: $colorBright !important;
   }
 }

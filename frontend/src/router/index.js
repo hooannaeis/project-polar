@@ -1,13 +1,14 @@
 import Vue from 'vue';
 import store from '../store';
 import VueRouter from 'vue-router';
+import { firebase } from "@firebase/app";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/hello',
-    name: 'Welcome',
+    path: '/',
+    name: 'Hello',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -47,9 +48,10 @@ const router = new VueRouter({
   routes
 });
 
-router.beforeEach((to, from, next) => {
-  console.log('router', store.getters.isLoggedIn);
-  const isLoggedIn = store.getters.isLoggedIn;
+router.beforeEach(async (to, from, next) => {
+  const isLoggedIn = await firebase.auth().currentUser;
+  console.info('currentUser', firebase.auth().currentUser);
+
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
   document.title = to.name;

@@ -30,7 +30,7 @@ html {
   &__card {
     position: absolute;
     border: 2px solid red;
-    top: 20%;
+    bottom: 0;
     left: 50%;
     transform: translate(-50%, -50%);
   }
@@ -42,8 +42,14 @@ html {
   }
 }
 
-.abs {
-  position: absolute;
+
+.pos {
+  &--abs {
+    position: absolute;
+  }
+  &--fix {
+    position: fixed;
+  }
   &--tl {
     top: 0.1rem;
     left: 0.1rem;
@@ -51,6 +57,17 @@ html {
   &--tr {
     top: 0.5rem;
     right: 0.5rem;
+  }
+  &--bm {
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.z {
+  &--2 {
+    z-index: 2;
   }
 }
 
@@ -64,14 +81,24 @@ html {
     justify-content: flex-end;
   }
   &--grid {
-    padding: 2rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     grid-gap: 1rem;
+    @media (min-width: $phoneBreakpoint) {
+      padding: 2rem;
+    }
   }
   &--header {
     background: $colorBright;
     border-bottom: 1px dashed $colorDark;
+    padding: 1rem;
+  }
+}
+
+.grid {
+  display: grid;
+  &--header-col {
+    grid-template-columns: 1fr 3fr;
   }
 }
 
@@ -81,8 +108,8 @@ html {
     background-color: $colorDark;
     color: $colorBright;
     border-radius: 1rem;
-    margin: 2rem auto;
     padding: 2rem;
+    margin: auto;
   }
   &__heading {
     border-bottom: 2px solid $colorBright;
@@ -141,13 +168,21 @@ html {
       background-image: $gradientWarning;
     }
   }
-  &--ghost {
+  &--ghost-bright {
     color: $colorBright;
     background-color: transparent;
     border: 1px solid $colorBright;
     &:hover {
       background-color: $colorBright;
       color: $colorDark;
+    }
+  }
+  &--ghost-dark {
+    border: 1px solid $colorDark;
+    background-color: transparent;
+    &:hover {
+      background-color: $colorDark;
+      color: $colorBright
     }
   }
   &--bright {

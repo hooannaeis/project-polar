@@ -18,6 +18,7 @@ import "@/assets/scss/main.scss"
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 firebase.auth().onAuthStateChanged(user => {
+  console.log('auth state changed');
   store.dispatch("fetchUser", user);
 });
 

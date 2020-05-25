@@ -2,14 +2,14 @@
   <div>
     <!-- card in display mode -->
     <div class="card__container" style="position: relative;" v-if="!isEditable">
-      <span class="btn--ghost abs abs--tr" @click="enterEditMode">
+      <span class="btn--ghost-bright pos--abs pos--tr" @click="enterEditMode">
         <iconBase iconFillColor="white" icon-name="pen" width="16">
           <iconPen />
         </iconBase>
       </span>
       <h2 class="card__heading">{{identity.identityName}}</h2>
       <identityElement>
-        <span slot="pin-parent">
+        <span slot="pin-parent" class="grid grid--header-col">
           <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="iconMail" width="16">
             <iconMail />
           </iconBase>
@@ -30,7 +30,7 @@
       </identityElement>
 
       <identityElement>
-        <span slot="pin-parent">
+        <span slot="pin-parent" class="grid grid--header-col">
           <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="lock" width="16">
             <iconLock />
           </iconBase>
@@ -71,15 +71,27 @@
         :placeholder="placeholderIdentity.identityName"
         v-model="identity.identityName"
       />
-      <div class="container--flex-vertical card__textbox">
-        <div v-if="mailLoading">
-          <shufflingCharacters maxCharacterCount="15" :startText="identity.receiveMail" />
-        </div>
-        <div v-else>
-          <copyText :inputText="identity.receiveMail"></copyText>
-        </div>
-        <button class="btn btn--ghost" @click="setRandomMail">create new</button>
-      </div>
+      <span class="btn--ghost-bright pos--abs pos--tr" @click="leaveCreateMode">
+        X
+      </span>
+      <identityElement>
+        <span slot="pin-parent" class="grid grid--header-col">
+          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="iconMail" width="16">
+            <iconMail />
+          </iconBase>
+          <div v-if="mailLoading">
+            <shufflingCharacters maxCharacterCount="15" :startText="identity.receiveMail" />
+          </div>
+          <div v-else>
+            <copyText :inputText="identity.receiveMail"></copyText>
+          </div>
+        </span>
+        <span slot="pin-two" @click="setRandomMail">
+          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="shuffle" width="16">
+            <iconShuffle />
+          </iconBase>
+        </span>
+      </identityElement>
       <div class="container--flex-vertical">
         <div>redirect active:</div>
         <label class="checkbox__container">
@@ -94,10 +106,10 @@
         <div v-else>
           <copyText :inputText="identity.password"></copyText>
         </div>
-        <button class="btn btn--ghost" @click="setRandomPassword">create new</button>
+        <button class="btn btn--ghost-bright" @click="setRandomPassword">create new</button>
       </div>
       <div class="container--flex-vertical">
-        <button class="btn btn--ghost" @click="leaveCreateMode">discard</button>
+        <button class="btn btn--ghost-bright" @click="leaveCreateMode">discard</button>
         <button class="btn btn--primary" @click="setIdentity">save</button>
       </div>
     </div>
@@ -113,6 +125,7 @@ import iconPen from './creatives/iconPen';
 import iconMail from './creatives/iconMail';
 import iconCopy from './creatives/iconCopy';
 import iconEyeClosed from './creatives/iconEyeClosed';
+import iconShuffle from './creatives/iconShuffle';
 import iconLock from './creatives/iconLock';
 import copyText from './copyText';
 import store from '../store';
@@ -128,7 +141,8 @@ export default {
     iconCopy,
     iconMail,
     iconEyeClosed,
-    iconLock
+    iconLock,
+    iconShuffle
   },
   data() {
     return {

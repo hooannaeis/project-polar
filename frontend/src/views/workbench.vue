@@ -43,10 +43,12 @@ export default {
   firestore() {
     console.log('workbench', store.getters.userId);
     if (store.getters.userId) {
+      const identities = db
+        .collection('identities')
+        .where('userId', '==', store.getters.userId);
+
       return {
-        identities: db
-          .collection('identities')
-          .where('userId', '==', store.getters.userId)
+        identities
       };
     }
   }
