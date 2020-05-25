@@ -13,8 +13,7 @@ jobs:
         with:
           node-version: 12
       - run: npm ci
-      - run: npm start --prefix ./frontend
-      - run: cd ..
+      - run: npm run build --prefix ./frontend
       - uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
