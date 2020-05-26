@@ -18,9 +18,9 @@ jobs:
       - run: npm ci --prefix ./frontend
       - run: npm run build --prefix ./frontend
       - name: Deploy 🚀
-        uses: w9jds/firebase-action@master
+      - uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
         env:
-          # you can retrieve this token by running ```firebase login:ci```
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
