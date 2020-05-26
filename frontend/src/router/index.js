@@ -49,12 +49,14 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const isLoggedIn = await firebase.auth().currentUser;
-  console.info('currentUser', firebase.auth().currentUser);
-
+  const isLoggedIn = store.state.isLoggedIn;
+  console.info('currentUser', isLoggedIn);
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
   document.title = to.name;
+  if (to.name === 'Log In' && isLoggedIn) {
+    next('/workbench')
+  }
   if (requiresAuth && !isLoggedIn) {
     console.log('not logged in, redirecting...');
     next('/log-in');

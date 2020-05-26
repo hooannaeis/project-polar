@@ -19,7 +19,11 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 firebase.auth().onAuthStateChanged(user => {
   console.log('auth state changed');
-  store.dispatch("fetchUser", user);
+  if (user) {
+    store.dispatch("fetchUser", user);
+  } else {
+    store.dispatch("fetchUser", null);
+  }
 });
 
 Vue.use(VueFirestore);
