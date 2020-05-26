@@ -12,6 +12,7 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 12
+      - run: npm ci --prefix ./frontend
       - run: npm run build --prefix ./frontend
       - uses: w9jds/firebase-action@master
         with:
