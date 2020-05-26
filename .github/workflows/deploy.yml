@@ -8,14 +8,21 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@master
+      - name: Checkout 🛎️
+        uses: |
+          actions/checkout@master
+          actions/setup-node@master
         with:
           node-version: 12
-      - run: npm ci --prefix ./frontend
-      - run: npm run build --prefix ./frontend
-      - uses: w9jds/firebase-action@master
+      - name: Install and Build 🔧
+        run: |
+          npm install @vue/cli
+          npm ci --prefix ./frontend
+          npm run build --prefix ./frontend
+      - name: Deploy 🚀
+        uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
         env:
+          # you can retrieve this token by running ```firebase login:ci```
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
