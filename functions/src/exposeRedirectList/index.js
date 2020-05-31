@@ -6,6 +6,12 @@ const firestore = new Firestore({
   timestampsInSnapshots: true,
 });
 
+const arrayToObject = (array) =>
+  array.reduce((obj, item) => {
+    obj[item.receiveMail] = item.destinationMail;
+    return obj;
+  }, {});
+
 async function getRedirectList() {
   const docRef = firestore.collection(config.collectionName);
   let redirectList = await docRef
@@ -16,14 +22,14 @@ async function getRedirectList() {
         const redirectDoc = doc.data();
         return {
           receiveMail: redirectDoc.receiveMail,
-          destinationMail: redirectDoc.destinationMail
-        }
+          destinationMail: redirectDoc.destinationMail,
+        };
       });
       return redirectL;
     })
     .catch((err) => {
       console.error('got an error', err);
-      return err
+      return err;
     });
   return redirectList;
 }
@@ -40,5 +46,6 @@ exports.main = functions.https.onRequest(async (req, res) => {
   }
 
   const redirectList = await getRedirectList();
-  return res.json(redirectList);
+  const redirectObject = arrayToObject(redirectList);
+  return res.json(redirectObject);
 });
