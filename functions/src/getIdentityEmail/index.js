@@ -2,6 +2,7 @@ const functions = require('firebase-functions');
 const config = require('./../../config.json');
 const getFriendlyNameFunction = `https://${config.functionRegion}-${config.projectName}.cloudfunctions.net/getFriendlyName`;
 const axios = require('axios');
+const EMAIL_DOMAIN = "identity.land"
 
 const Firestore = require('@google-cloud/firestore');
 const firestore = new Firestore({
@@ -27,7 +28,7 @@ async function getFriendlyMail() {
     });
   // TODO: the domain should one day also be random
   console.log(friendlyMail);
-  return `${friendlyMail}@hannes.cool`;
+  return `${friendlyMail}@${EMAIL_DOMAIN}`;
 }
 
 /**
