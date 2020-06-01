@@ -15,32 +15,35 @@ const client = nodemailer.createTransport({
   service: 'SendGrid',
   auth: {
     user: SENDGRID_USER,
-    pass: SENDGRID_PASS
-  }
-});
-
-let email = {
-  from: 'hannes@identity.land',
-  to: 'hanneskuhl@live.de',
-  subject: 'Hello',
-  text: 'Hello world',
-  html: '<b>Hello world</b>'
-};
-
-client.sendMail(email, function(err, info){
-    if (err ){
-      console.log(err);
-    }
-    else {
-      console.log('Message sent: ' + info.response);
-    }
+    pass: SENDGRID_PASS,
+  },
 });
 
 app.post('/', upload.none(), (req, res) => {
   try {
-    const config = {keys: ['to', 'from', 'subject', 'text',]};
+    const config = { keys: ['to', 'from', 'subject', 'text', 'html'] };
     const parsing = new mailParse(config, req);
     let mail = parsing.keyValues();
-    console.log('This is the subject from the mail: ', mail.subject);    
+    mail.to = 'hanneskuhl@live.de';
+    console.log('This is the subject from the mail: ', mail.subject);
+    client.sendMail(email, function (err, info) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ success: false, data: err });
+      } else {
+        console.log('Message sent: ' + info.response);
+        return res.status(200).json({ success: true, data: info });
+      }
+    });
+  } catch (err) {
+    console.warn(err);
+    return res.status(500).json({ success: false, data: err });
   }
-})
+});
+
+app.get('/', (req, res) => {
+  res.send('moin moin');
+});
+
+app.listen(8080);
+console.log('app listening on port 8080');
