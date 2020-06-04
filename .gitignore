@@ -108,6 +108,7 @@ frontend/src/firebaseConfig.js
 # secrets
 *client_secret*
 *_creds*
+*app.yaml
 .firebase/hosting.ZnJvbnRlbmRcZGlzdA.cache
 
 #high-churn app files

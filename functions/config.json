@@ -1,5 +1,7 @@
 {
   "projectName": "project-polar-eda66",
   "functionRegion": "us-central1",
-  "collectionName": "identities"
+  "collectionName": "identities",
+  "sendgridPass": "GQ3442eMCo#b",
+  "sendgridUser": "hooannaeis@gmail.com"
 }

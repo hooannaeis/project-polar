@@ -1,0 +1,66 @@
+--xYzZY
+Content-Disposition: form-data; name="dkim"
+
+{@gmail.com : pass}
+--xYzZY
+Content-Disposition: form-data; name="envelope"
+
+{"to":["husky-swan@identity.land"],"from":"hooannaeis@gmail.com"}
+--xYzZY
+Content-Disposition: form-data; name="subject"
+
+moinsen
+--xYzZY
+Content-Disposition: form-data; name="to"
+
+husky-swan@identity.land
+--xYzZY
+Content-Disposition: form-data; name="html"
+
+<div dir="ltr">requestbin</div>
+
+--xYzZY
+Content-Disposition: form-data; name="from"
+
+hannes Kuhl <hooannaeis@gmail.com>
+--xYzZY
+Content-Disposition: form-data; name="text"
+
+requestbin
+
+--xYzZY
+Content-Disposition: form-data; name="charsets"
+
+{"to":"UTF-8","html":"UTF-8","subject":"UTF-8","from":"UTF-8","text":"UTF-8"}
+--xYzZY
+Content-Disposition: form-data; name="SPF"
+
+pass
+--xYzZY
+Content-Disposition: form-data; name="headers"
+
+Received: by mx0044p1las1.sendgrid.net with SMTP id VyNx11fZJX Mon, 01 Jun 2020 17:30:39 +0000 (UTC)
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169]) by mx0044p1las1.sendgrid.net (Postfix) with ESMTPS id 9D1CA102616 for <test@identity.land>; Mon,  1 Jun 2020 17:30:39 +0000 (UTC)
+Received: by mail-qk1-f169.google.com with SMTP id g28so9102627qkl.0 for <test@identity.land>; Mon, 01 Jun 2020 10:30:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025; h=mime-version:from:date:message-id:subject:to; bh=liLqjTAqLFUZR+ckIsGnL5PuDwpDKpPWOv8ht5jd0oY=; b=HOlcPaqj68kRMY8GWpYd7ladAQg30MIBqVWkkzF0bnC+1rjoIvGTXDTKj2i2YOjoq8 jpAwP2f0t+iHRQJXMPBSoD5E6G5H9P/iDiwh/Tg4Gb2yG3ugL3rq4b6aGf4xOtfhYC31 IIue8lD5u4cBuNnFrIsNjmedKGy5qafVBvcrhU/tikvv77KvDvLQPLtK2AN+QHQLL5+g GlZk4Bu3iiclGuEyFVIS8WQ3AhkKozP2HUPhvHNsTpUhNpLAh+fXhp5x3VC1A20aaENS R3x8eTYqGFkc+BlQrAQvAX2ga5+VTZ8VPEApbq5KJnNiBE3iFQK2doUCNGL+YgYa6dzl 1Pjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1e100.net; s=20161025; h=x-gm-message-state:mime-version:from:date:message-id:subject:to; bh=liLqjTAqLFUZR+ckIsGnL5PuDwpDKpPWOv8ht5jd0oY=; b=oQPJLvi7FrZYblKZMozeJqG/FHjAAWiiGhfGn07KbdK81rpbKS5mE84CBssSK2cIpq 834rypC8aTW+i0EE7K1hcWUOBB4rqGbA9Aijjtf4fxe9peeBEjgL7NwtxhVHXMG4zsX3 HFZ3jhnZm7c4VmJyr8qtcE4JwC4LWU5LvxXzb98cin3gTYa88YkKip6JS+YmQZzlFNer MgZx7zNTEDtcmM3wm6J+F1sqnSGwT65tb1HNMHj1qbOlLI0g4zLdmNfBvct8zd4+M4W1 KxRUZo6GFhF1H87NNxpKvycXphtA88LOJD61TzukV+L2IytBcjCup/RP+1D5lT8RUmgc 9nUQ==
+X-Gm-Message-State: AOAM531lImZAGliyDkH52dsjmtxUxDJEpAnAwOCu2b+T1vwEEIwllcU1 /lk0N8eI320PkmUyeuh57q0vkUndYr4it2EwxKDWNgZU
+X-Google-Smtp-Source: ABdhPJzc4vbINh/aiUIBOzWlbzEcrog/UGEoiLV2hh1B46S4dG1y4+lmX34qyRzEdvFAjoIvcxdT5kJ/ysYrIMejNb4=
+X-Received: by 2002:ae9:e647:: with SMTP id x7mr21280764qkl.70.1591032638578; Mon, 01 Jun 2020 10:30:38 -0700 (PDT)
+MIME-Version: 1.0
+From: hannes Kuhl <hooannaeis@gmail.com>
+Date: Mon, 1 Jun 2020 19:30:27 +0200
+Message-ID: <CAC1MLpOvaasej_bfsfgDbrEV13tNePO5kY6Vt=pao+=y=1Bx1w@mail.gmail.com>
+Subject: moinsen
+To: husky-swan@identity.land
+Content-Type: multipart/alternative; boundary="0000000000003fa5ef05a70927a4"
+
+--xYzZY
+Content-Disposition: form-data; name="sender_ip"
+
+209.85.222.169
+--xYzZY
+Content-Disposition: form-data; name="attachments"
+
+0
+--xYzZY--
