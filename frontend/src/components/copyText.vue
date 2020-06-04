@@ -124,7 +124,6 @@ export default {
 }
 
 #displayText {
-  padding: 0.1rem;
   &:hover {
     background-color: transparentize($color: darkgrey, $amount: 0.8);
     cursor: pointer;

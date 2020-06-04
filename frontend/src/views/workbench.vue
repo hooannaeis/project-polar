@@ -7,7 +7,7 @@
         <identityCard :identity="identity" />
       </section>
     </div>
-    <identityCard v-else :identity="exampleIdentity" />
+    <h2 v-else class="txt--warning">you didn't create any identities yet...</h2>
   </div>
 </template>
 

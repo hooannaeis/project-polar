@@ -58,7 +58,7 @@ export default {
         .catch(function(err) {
           // Handle Errors here.
           self.errors.authFail = 'Oops. ' + err.message;
-          console.log(errorMessage);
+          console.warn(err.message);
         });
       if (user) {
         this.$router.push({ path: 'workbench' });

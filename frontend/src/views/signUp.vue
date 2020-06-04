@@ -42,7 +42,8 @@
 </template>
 
 <script>
-import firebase from 'firebase';
+import { firebase } from '@firebase/app';
+import '@firebase/auth';
 
 export default {
   data() {
@@ -58,7 +59,8 @@ export default {
       errors: {
         email: null,
         password: null,
-        confirmPassword: null
+        confirmPassword: null,
+        authFail: null
       }
     };
   },
@@ -89,41 +91,35 @@ export default {
         this.errors.confirmPassword = null;
       }
 
-      if (this.errors.email || this.errors.password || this.errors.confirmPassword) {
+      if (
+        this.errors.email ||
+        this.errors.password ||
+        this.errors.confirmPassword
+      ) {
         return;
       }
-
       // FORM VALIDATION
 
       let self = this;
+      this.errors.authFail = null;
 
       firebase
         .auth()
-        .setPersistence(firebase.auth.Auth.Persistence.SESSION)
-        .then(function() {
-          // Existing and future Auth states are now persisted in the current
-          // session only. Closing the window would clear any existing state even
-          // if a user forgets to sign out.
-          // ...
-          // New sign-in will be persisted with session persistence.
-
-          firebase
-            .auth()
-            .createUserWithEmailAndPassword(self.email, self.password)
-            .then(data => {
-              data.user
-                .updateProfile({
-                  displayName: self.displayName
-                })
-                .then(
-                  user => {
-                    self.$router.replace('workbench');
-                  },
-                  err => {
-                    alert('Oops. ' + err.message);
-                  }
-                );
-            });
+        .createUserWithEmailAndPassword(self.email, self.password)
+        .then(data => {
+          data.user
+            .updateProfile({
+              displayName: self.displayName
+            })
+            .then(
+              user => {
+                self.$router.push({ path: 'workbench' });
+              },
+              err => {
+                self.errors.authFail = 'Oops. ' + err.message;
+                console.warn(err.message);
+              }
+            );
         })
         .catch(function(error) {
           // Handle Errors here.

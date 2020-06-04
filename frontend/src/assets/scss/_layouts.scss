@@ -18,6 +18,7 @@ html {
   }
 }
 
+
 .show {
   display: block;
 }
@@ -91,7 +92,7 @@ html {
   &--header {
     background: $colorBright;
     border-bottom: 1px dashed $colorDark;
-    padding: 1rem;
+    padding: 0.5rem;
   }
 }
 

@@ -21,7 +21,6 @@ input[type="text"] {
   padding: .8rem;
   margin: 0px;
   width: 94%;
-  font-size: 1rem;
   background: transparent;
 };
 
@@ -52,5 +51,9 @@ input[type="text"]:valid{
   }
   &--is-bright {
     color: $colorBright !important;
+  }
+  &--is-headline {
+    font-size: 1.5rem;
+    font-weight: bold;
   }
 }

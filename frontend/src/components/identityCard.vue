@@ -34,22 +34,23 @@
           <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="lock" width="16">
             <iconLock />
           </iconBase>
-          <copyText :inputText="identity.password" :textIsVisible="false"></copyText>
+          <copyText :inputText="identity.password" :textIsVisible="showPassword"></copyText>
         </span>
-        <iconBase
-          slot="pin-one"
-          iconFillColor="transparent"
-          strokeWidth="4px"
-          icon-name="iconEye"
-          width="16"
-        >
-          <iconEyeClosed />
-        </iconBase>
-        <span slot="pin-two">
-          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="iconCopy" width="16">
-            <iconCopy />
+        <span slot="pin-one" @click="togglePasswordVisibility">
+          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="iconEye" width="16">
+            <iconEyeOpen v-if="showPassword" />
+            <iconEyeClosed v-else />
           </iconBase>
         </span>
+        <iconBase
+          slot="pin-two"
+          iconFillColor="transparent"
+          strokeWidth="4px"
+          icon-name="iconCopy"
+          width="16"
+        >
+          <iconCopy />
+        </iconBase>
       </identityElement>
     </div>
 
@@ -64,16 +65,14 @@
       <p v-if="errors.identityName" class="txt--warning">{{errors.identityName}}</p>
       <input
         type="text"
-        class="card__heading"
+        class="card__heading txt--is-headline"
         required
         pattern=".*"
         ref="identityNameInput"
         :placeholder="placeholderIdentity.identityName"
         v-model="identity.identityName"
       />
-      <span class="btn--ghost-bright pos--abs pos--tr" @click="leaveCreateMode">
-        X
-      </span>
+      <span class="btn--ghost-bright pos--abs pos--tr" @click="leaveCreateMode">X</span>
       <identityElement>
         <span slot="pin-parent" class="grid grid--header-col">
           <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="iconMail" width="16">
@@ -86,32 +85,55 @@
             <copyText :inputText="identity.receiveMail"></copyText>
           </div>
         </span>
+        <span slot="pin-one" class="container--flex-vertical">
+          redirect
+          <label class="checkbox__container">
+            <input type="checkbox" id="checkbox" v-model="identity.redirectActive" />
+            <span class="checkbox__checkmark"></span>
+          </label>
+        </span>
         <span slot="pin-two" @click="setRandomMail">
           <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="shuffle" width="16">
             <iconShuffle />
           </iconBase>
         </span>
       </identityElement>
+      <!-- PASSWORD ELEMENT -->
+      <identityElement>
+        <span slot="pin-parent" class="grid grid--header-col">
+          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="lock" width="16">
+            <iconLock />
+          </iconBase>
+          <div v-if="passLoading">
+            <shufflingCharacters maxCharacterCount="15" :startText="identity.password" />
+          </div>
+          <div v-else>
+            <copyText :inputText="identity.password" :textIsVisible="showPassword"></copyText>
+          </div>
+        </span>
+        <span slot="pin-one" @click="togglePasswordVisibility">
+          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="iconEye" width="16">
+            <iconEyeOpen v-if="showPassword" />
+            <iconEyeClosed v-else />
+          </iconBase>
+        </span>
+        <span @click="setRandomPassword" slot="pin-two">
+          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="shuffle" width="16">
+            <iconShuffle />
+          </iconBase>
+        </span>
+      </identityElement>
+      <!-- PASSWORD ELEMENT -->
+
       <div class="container--flex-vertical">
-        <div>redirect active:</div>
-        <label class="checkbox__container">
-          <input type="checkbox" id="checkbox" v-model="identity.redirectActive" />
-          <span class="checkbox__checkmark"></span>
-        </label>
-      </div>
-      <div class="container--flex-vertical card__textbox">
-        <div v-if="passLoading">
-          <shufflingCharacters maxCharacterCount="15" :startText="identity.password" />
-        </div>
-        <div v-else>
-          <copyText :inputText="identity.password"></copyText>
-        </div>
-        <button class="btn btn--ghost-bright" @click="setRandomPassword">create new</button>
-      </div>
-      <div class="container--flex-vertical">
-        <button class="btn btn--ghost-bright" @click="leaveCreateMode">discard</button>
+        <button class="btn btn--ghost-bright" @click="initializeDelete">delete</button>
         <button class="btn btn--primary" @click="setIdentity">save</button>
       </div>
+      <areYouSureModal
+        v-show="showDeleteModal"
+        @confirm="deleteIdentity"
+        @discard="showDeleteModal = false"
+      >Are you sure, you want to delete {{ identity.identityName }}</areYouSureModal>
     </div>
   </div>
 </template>
@@ -125,9 +147,11 @@ import iconPen from './creatives/iconPen';
 import iconMail from './creatives/iconMail';
 import iconCopy from './creatives/iconCopy';
 import iconEyeClosed from './creatives/iconEyeClosed';
+import iconEyeOpen from './creatives/iconEyeOpen';
 import iconShuffle from './creatives/iconShuffle';
 import iconLock from './creatives/iconLock';
 import copyText from './copyText';
+import areYouSureModal from './areYouSureModal';
 import store from '../store';
 import { db } from '../main';
 
@@ -141,11 +165,15 @@ export default {
     iconCopy,
     iconMail,
     iconEyeClosed,
+    iconEyeOpen,
     iconLock,
+    areYouSureModal,
     iconShuffle
   },
   data() {
     return {
+      showPassword: false,
+      showDeleteModal: false,
       isEditable: this.isEditableProp,
       mailLoading: false,
       passLoading: false,
@@ -153,7 +181,7 @@ export default {
         destinationMail: 'your@email.com',
         identityName: 'Identity Name',
         password: 'examplePassword',
-        receiveMail: 'randommail@hannes.cool',
+        receiveMail: 'randommail@identity.land',
         redirectActive: true
       },
       errors: {
@@ -183,6 +211,9 @@ export default {
     enterEditMode() {
       this.isEditable = true;
     },
+    togglePasswordVisibility() {
+      this.showPassword = !this.showPassword;
+    },
     setRandomPassword() {
       this.passLoading = true;
       var length = 15,
@@ -209,6 +240,24 @@ export default {
       } else {
         this.storeNewIdentity();
       }
+    },
+    initializeDelete() {
+      this.showDeleteModal = !this.showDeleteModal;
+    },
+    deleteIdentity() {
+      this.errors.identityName = null;
+
+      const identityKey = this.identity['.key'];
+      const identityRef = db.collection('identities').doc(identityKey);
+      identityRef
+        .delete()
+        .then(() => {
+          this.leaveCreateMode();
+        })
+        .catch(err => {
+          this.errors.identityName = err;
+          return;
+        });
     },
     updateIdentity() {
       console.log('updating identity');
@@ -285,11 +334,8 @@ export default {
         .then(response => (randomMail = response.data))
         .catch(err => console.error(err))
         .finally(() => {
-          const self = this;
-          setTimeout(function() {
-            self.identity.receiveMail = randomMail;
-            self.mailLoading = false;
-          }, 1000);
+          this.identity.receiveMail = randomMail;
+          this.mailLoading = false;
         });
     }
   },
