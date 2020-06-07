@@ -1,0 +1,30 @@
+<template>
+<div class="container--footer">
+  <div class="grid grid--two-col max-width--tablet mg--auto">
+    <div>
+      <p>the very important pages</p>
+      <p>
+        <router-link to="/sign-up">imprint</router-link>
+      </p>
+      <p>
+        <router-link to="/sign-up">privacy policy</router-link>
+      </p>
+    </div>
+    <div>
+      <p>🤷‍♂️</p>
+      <p class="txt--fancy">made by accident</p>
+      <p class="txt--fancy">and Hannes Kuhl</p>
+    </div>
+  </div>
+</div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style lang="scss" scoped>
+.text {
+  display: none;
+}
+</style>

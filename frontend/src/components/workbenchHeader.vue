@@ -1,12 +1,11 @@
 <template>
   <div class="container--flex-vertical container--header">
     <span class="dropdown__container">
-      <button @click="toggleDropdown" class="btn btn--ghost-dark">
-        <logo width="60" height="40"></logo>
-      </button>
+      <logo width="60" height="40"></logo>
+      <button @click="toggleDropdown" class="btn btn--ghost-dark">{{user.data.displayName}}</button>
       <div class="dropdown__content" :class="{'show': showDropdown}">
-        <div>{{user.data.displayName}}</div>
-        <button class="btn btn--warning" @click="logout">log out</button>
+        <router-link to="/my/account" tag="button" class="btn btn--ghost-dark btn--is-mini">My Account</router-link>
+        <button class="btn btn--warning btn--is-mini " @click="logout">log out</button>
       </div>
     </span>
   </div>
@@ -35,7 +34,7 @@ export default {
         .auth()
         .signOut()
         .then(() => {
-          this.$router.replace('log-in');
+          this.$router.push({ path: '/log-in' });
         });
     },
     toggleDropdown: function() {

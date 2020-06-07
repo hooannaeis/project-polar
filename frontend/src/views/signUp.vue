@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="card__container">
-      <h1 class="card__heading">Nice to meet you</h1>
+      <h2 class="txt--fancy txt--primary">welcome aboard, mate</h2>
       <div>
         <p class="txt--warning" v-if="errors.email">{{errors.email}}</p>
         <input
@@ -31,12 +31,8 @@
           placeholder="confirm password"
           @keyup.enter="signUp"
         />
-        <button class="btn btn--primary" @click="signUp">Sign Up</button>
+        <button class="btn btn--primary txt--fancy" @click="signUp">Sign Up</button>
       </div>
-    </div>
-    <div>
-      You already have an account?
-      <router-link to="log-in">Log in</router-link>
     </div>
   </div>
 </template>
@@ -113,7 +109,7 @@ export default {
             })
             .then(
               user => {
-                self.$router.push({ path: 'workbench' });
+                self.$router.push({ path: 'my/workbench' });
               },
               err => {
                 self.errors.authFail = 'Oops. ' + err.message;

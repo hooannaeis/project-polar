@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="card__container">
-      <h1 class="card__heading">Welcome back, mate</h1>
+      <h2 class="txt--fancy txt--primary">Welcome back, mate</h2>
       <p class="txt--warning" v-if="errors.authFail">{{errors.authFail}}</p>
       <div>
         <input type="email" required v-model="email" placeholder="email@domain.com" />
@@ -14,10 +14,6 @@
         />
         <button class="btn btn--primary" @click="login">Log In</button>
       </div>
-    </div>
-    <div>
-      You don't have an account yet?
-      <router-link to="/sign-up">Sign up</router-link>
     </div>
   </div>
 </template>
@@ -61,7 +57,7 @@ export default {
           console.warn(err.message);
         });
       if (user) {
-        this.$router.push({ path: 'workbench' });
+        this.$router.push({ path: 'my/workbench' });
       }
     }
   }

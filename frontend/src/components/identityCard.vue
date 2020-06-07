@@ -7,7 +7,7 @@
           <iconPen />
         </iconBase>
       </span>
-      <h2 class="card__heading">{{identity.identityName}}</h2>
+      <h2 class="txt--fancy">{{identity.identityName}}</h2>
       <identityElement>
         <span slot="pin-parent" class="grid grid--header-col">
           <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="iconMail" width="16">
@@ -65,7 +65,7 @@
       <p v-if="errors.identityName" class="txt--warning">{{errors.identityName}}</p>
       <input
         type="text"
-        class="card__heading txt--is-headline"
+        class="txt--is-large"
         required
         pattern=".*"
         ref="identityNameInput"

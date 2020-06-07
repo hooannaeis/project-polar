@@ -1,16 +1,23 @@
 <template>
   <div id="app">
-    <router-view/>
+    <generalHeader v-if="!this.$route.path.includes('my')" />
+    <workbenchHeader v-else />
+    <router-view />
+    <generalFooter />
   </div>
 </template>
 
-<style lang="scss" scoped>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  min-height: 100vh;
-  min-width: 100vw;
-}
-</style>
+<script>
+import generalFooter from './components/generalFooter';
+import generalHeader from './components/generalHeader';
+import workbenchHeader from './components/workbenchHeader';
+
+export default {
+  name: 'app',
+  components: {
+    generalFooter,
+    generalHeader,
+    workbenchHeader
+  }
+};
+</script>

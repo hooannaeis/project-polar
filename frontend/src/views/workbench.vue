@@ -1,6 +1,5 @@
 <template>
   <div>
-    <workbenchHeader />
     <createIdentity />
     <div v-if="identities.length" class="container--grid">
       <section v-for="identity in identities" :key="identity['.key']">
@@ -12,7 +11,6 @@
 </template>
 
 <script>
-import workbenchHeader from '../components/workbenchHeader';
 import identityCard from '../components/identityCard';
 import createIdentity from '../components/createIdentity';
 
@@ -25,7 +23,6 @@ import store from '../store';
 export default {
   components: {
     identityCard,
-    workbenchHeader,
     createIdentity
   },
   data() {

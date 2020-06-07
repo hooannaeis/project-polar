@@ -1,23 +1,38 @@
 <template>
   <div>
-    <h1>landing page</h1>
-    <div>
-      here goes some informational text
-    </div>
-    <div>
-      <h2>call to action</h2>
-      <router-link to="/sign-up">sign up</router-link>
-      <router-link to="/log-in">log in</router-link>
-    </div>
+    <section class="grid grid--two-col mg--auto container--fullHeight container--flex-vertical">
+      <div>
+        <h2 class="txt--fancy txt--primary">data breaches...</h2>
+        <p>you don't have time</p>
+        <p>to worry about them</p>
+        <router-link tag="button" to="/sign-up" class="btn btn--warning txt--fancy">sign up</router-link>
+      </div>
+      <div>
+        <span style="border: 1px dashed red; height: 10rem; width: 10rem;">image placeholder</span>
+      </div>
+    </section>
+    <section class="grid grid--two-col container--fullHeight container--flex-vertical">
+      <div>placeholder image</div>
+      <div>
+        <h2 class="txt--fancy txt--primary">what's the risk?</h2>
+        <p>using the same email and password on all your account means if one of them breaches, all your accounts are at risk</p>
+        <p>with identity land, it's easy to set up individual emails and password for all you accouns</p>
+        <router-link tag="button" to="/sign-up" class="btn btn--warning txt--fancy">sign up</router-link>
+      </div>
+    </section>
+    <section>
+      <h2 class="txt--fancy txt--warning">Oooooooor</h2>
+      <p>you can also take a look at this app's GitHub and maybe host it yourself 😁</p>
+      <a href="https://github.com/hooannaeis/project-polar" target="blank">
+        GitHub repository
+      </a>
+    </section>
   </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style>
-
 </style>

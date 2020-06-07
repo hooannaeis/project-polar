@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import store from '../store';
 import VueRouter from 'vue-router';
-import { firebase } from "@firebase/app";
+import { firebase } from '@firebase/app';
 
 Vue.use(VueRouter);
 
@@ -28,12 +28,31 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/logIn.vue')
   },
   {
-    path: '/workbench',
-    name: 'Workbench',
-    component: () => import(/* webpackChunkName: "about" */ '../views/workbench.vue'),
+    path: '/my',
+    redirect: '/my/workbench',
+    component: () => import('../views/my.vue'),
     meta: {
+      redirect: true,
       requiresAuth: true
-    }
+    },
+    children: [
+      {
+        path: 'workbench',
+        name: 'My Workbench',
+        component: () => import(/* webpackChunkName: "about" */ '../views/workbench.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: 'account',
+        name: 'My Account',
+        component: () => import(/* webpackChunkName: "about" */ '../views/myAccount.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      }
+    ]
   },
   {
     path: '*',
@@ -55,7 +74,7 @@ router.beforeEach(async (to, from, next) => {
 
   document.title = to.name;
   if (to.name === 'Log In' && isLoggedIn) {
-    next('/workbench')
+    next('/my/workbench');
   }
   if (requiresAuth && !isLoggedIn) {
     console.log('not logged in, redirecting...');

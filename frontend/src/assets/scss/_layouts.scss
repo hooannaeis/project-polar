@@ -1,8 +1,7 @@
 html {
-  color: $colorDark;
-  background: $colorBrightDark;
-  min-height: 100vh;
-  min-width: 100vw;
+  background: $gradientDark;
+  margin: 0;
+  padding: 0;
 }
 
 .dropdown {
@@ -17,7 +16,6 @@ html {
     display: none;
   }
 }
-
 
 .show {
   display: block;
@@ -42,7 +40,6 @@ html {
     opacity: 0.5;
   }
 }
-
 
 .pos {
   &--abs {
@@ -73,6 +70,9 @@ html {
 }
 
 .container {
+  &--flex {
+    display: flex;
+  }
   &--flex-vertical {
     display: flex;
     align-items: center;
@@ -81,18 +81,25 @@ html {
   &--flex-end {
     justify-content: flex-end;
   }
+  &--fullHeight {
+    min-height: 75vh;
+  }
   &--grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     grid-gap: 1rem;
-    @media (min-width: $phoneBreakpoint) {
+    @media (min-width: $breakPhone) {
       padding: 2rem;
     }
   }
   &--header {
-    background: $colorBright;
-    border-bottom: 1px dashed $colorDark;
+    border-bottom: 1px dashed $colorBright;
     padding: 0.5rem;
+  }
+  &--footer {
+    margin-top: 2rem;
+    border-top: 1px dashed $colorBright;
+    width: 100%;
   }
 }
 
@@ -100,33 +107,53 @@ html {
   display: grid;
   &--header-col {
     grid-template-columns: 1fr 3fr;
+    @media (max-width: $breakPhone) {
+      grid-template-columns: 1fr;
+    }
+  }
+  &--two-col {
+    grid-template-columns: 1fr 1fr;
+    @media (max-width: $breakPhone) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.max-width {
+  &--phone {
+    max-width: $breakPhone;
+  }
+  &--tablet {
+    max-width: $breakTablet;
+  }
+  &--desktop {
+    max-width: $breakDesktop;
+  }
+}
+
+.mg {
+  &--auto {
+    margin: auto;
   }
 }
 
 .card {
   &__container {
-    max-width: $phoneBreakpoint;
+    max-width: $breakPhone;
     background-color: $colorDark;
     color: $colorBright;
-    border-radius: 1rem;
     padding: 2rem;
     margin: auto;
-  }
-  &__heading {
-    border-bottom: 2px solid $colorBright;
-    margin: 0.7rem;
   }
   &__textbox {
     margin: 0.5rem;
     padding: 0.5rem;
     border: 1px solid $colorBright;
-    border-radius: 0.5rem;
   }
   &__pinhead {
     border-left: 1px solid $colorBright;
     border-right: 1px solid $colorBright;
     border-bottom: 1px solid $colorBright;
-    border-radius: 0 0 0.5rem 0.5rem;
     padding: 0.5rem;
     margin: 0 1rem 0.5rem 0.5rem;
     cursor: pointer;
@@ -147,10 +174,9 @@ html {
   margin: 1rem;
   text-align: center;
   display: inline-block;
-  border-radius: 0.5rem;
 
   &--is-mini {
-    padding: 0.1rem;
+    padding: 0.3rem;
   }
 
   &--primary {
@@ -183,7 +209,7 @@ html {
     background-color: transparent;
     &:hover {
       background-color: $colorDark;
-      color: $colorBright
+      color: $colorBright;
     }
   }
   &--bright {
@@ -248,7 +274,6 @@ html {
   }
   &__checkmark {
     border: 1px dashed $colorWarning;
-    border-radius: 25%;
     position: absolute;
     top: -0.5rem;
     left: -0.5rem;
