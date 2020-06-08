@@ -4,8 +4,8 @@
       <logo width="60" height="40"></logo>
       <button @click="toggleDropdown" class="btn btn--ghost-dark">{{user.data.displayName}}</button>
       <div class="dropdown__content" :class="{'show': showDropdown}">
-        <router-link to="/my/account" tag="button" class="btn btn--ghost-dark btn--is-mini">My Account</router-link>
-        <button class="btn btn--warning btn--is-mini " @click="logout">log out</button>
+        <router-link to="/my/account" tag="button" class="btn btn--ghost-dark btn--mini">My Account</router-link>
+        <button class="btn btn--warning btn--mini " @click="logout">log out</button>
       </div>
     </span>
   </div>

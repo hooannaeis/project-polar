@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="grid grid--two-col mg--auto container--fullHeight container--flex-vertical">
+    <section class="grid grid--two-col mg--auto container--full-height container--flex-vertical">
       <div>
         <h2 class="txt--fancy txt--primary">data breaches...</h2>
         <p>you don't have time</p>
@@ -11,7 +11,7 @@
         <span style="border: 1px dashed red; height: 10rem; width: 10rem;">image placeholder</span>
       </div>
     </section>
-    <section class="grid grid--two-col container--fullHeight container--flex-vertical">
+    <section class="grid grid--two-col container--full-height container--flex-vertical">
       <div>placeholder image</div>
       <div>
         <h2 class="txt--fancy txt--primary">what's the risk?</h2>
@@ -23,9 +23,9 @@
     <section>
       <h2 class="txt--fancy txt--warning">Oooooooor</h2>
       <p>you can also take a look at this app's GitHub and maybe host it yourself 😁</p>
-      <a href="https://github.com/hooannaeis/project-polar" target="blank">
+      <span class="link" href="https://github.com/hooannaeis/project-polar" target="blank">
         GitHub repository
-      </a>
+      </span>
     </section>
   </div>
 </template>

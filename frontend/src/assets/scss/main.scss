@@ -5,9 +5,9 @@
 
 #app {
   background: $colorDark;
-  max-width: $breakDesktop;
   text-align: center;
   margin: auto;
   min-height: 98vh;
-  min-width: 94vw;
+  min-width: $breakPhone;
+  max-width: $breakDesktop;
 }

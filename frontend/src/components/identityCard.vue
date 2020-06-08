@@ -65,7 +65,7 @@
       <p v-if="errors.identityName" class="txt--warning">{{errors.identityName}}</p>
       <input
         type="text"
-        class="txt--is-large"
+        class="txt--large"
         required
         pattern=".*"
         ref="identityNameInput"

@@ -8,6 +8,7 @@ body {
 ul,
 li {
   list-style: None;
+  padding: 0;
 }
 
 h1 {
@@ -38,6 +39,15 @@ h4 {
 
 a {
   text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+  &:active {
+    text-decoration: none;
+  }
+}
+
+.link {
   color: $colorBright;
   border-bottom: 1px dotted $colorBright;
   transition: all 0.5s;
@@ -58,8 +68,7 @@ input[type='email'],
 input[type='password'],
 input[type='text'] {
   border: none;
-  border-bottom: 1px dotted $colorBright;
-  color: $colorBright;
+  border-bottom: 1px dotted $colorDark;
   padding: 0.8rem;
   margin: 0px;
   width: 94%;
@@ -71,14 +80,7 @@ input[type='email']:focus,
 input[type='password']:focus,
 input[type='text']:focus {
   outline: none;
-  border-bottom: 2px solid $colorBrightDark;
-}
-
-input[type='url']:valid,
-input[type='email']:valid,
-input[type='password']:valid,
-input[type='text']:valid {
-  border-bottom: 3px solid $colorPrimary;
+  border-bottom: 1px solid $colorDarkBright;
 }
 
 .txt {
@@ -88,16 +90,16 @@ input[type='text']:valid {
   &--primary {
     color: $colorPrimary;
   }
-  &--is-small {
+  &--small {
     font-size: 0.7rem;
   }
-  &--is-dark {
+  &--dark {
     color: $colorDark !important;
   }
-  &--is-bright {
+  &--bright {
     color: $colorBright !important;
   }
-  &--is-large {
+  &--large {
     font-size: 1.5rem;
     font-weight: bold;
   }

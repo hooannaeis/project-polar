@@ -1,36 +1,59 @@
 <template>
-  <div>
+  <div class="container--full-height container--flex-vertical">
     <div class="card__container">
       <h2 class="txt--fancy txt--primary">welcome aboard, mate</h2>
       <div>
-        <p class="txt--warning" v-if="errors.email">{{errors.email}}</p>
-        <input
-          required
-          type="email"
-          v-model="email"
-          ref="emailInput"
-          placeholder="email@domain.com"
-          :pattern="regexPatterns.email"
-        />
+        <div class="pos--rel">
+          <p class="txt--warning txt--small pos--abs pos--tr" v-if="errors.email">{{errors.email}}</p>
+          <input
+            required
+            type="email"
+            v-model="email"
+            ref="emailInput"
+            placeholder="email@domain.com"
+            :pattern="regexPatterns.email"
+          />
+        </div>
         <input required type="text" v-model="displayName" placeholder="First name" ref="nameInput" />
-        <p class="txt--warning" v-if="errors.password">{{errors.password}}</p>
-        <input
-          required
-          type="password"
-          v-model="password"
-          ref="passwordInput"
-          placeholder="password"
-          :pattern="regexPatterns.password"
-        />
-        <p class="txt--warning" v-if="errors.confirmPassword">{{errors.confirmPassword}}</p>
-        <input
-          required
-          type="password"
-          ref="confirmPasswordInput"
-          v-model="confirmPassword"
-          placeholder="confirm password"
-          @keyup.enter="signUp"
-        />
+        <div class="pos--rel">
+          <p
+            class="txt--warning txt--small pos--abs pos--tr"
+            v-if="errors.password"
+          >{{errors.password}}</p>
+          <input
+            required
+            type="password"
+            v-model="password"
+            ref="passwordInput"
+            placeholder="password"
+          />
+        </div>
+        <div class="pos--rel">
+          <p
+            class="txt--warning txt--small pos--abs pos--tr"
+            v-if="errors.confirmPassword"
+          >{{errors.confirmPassword}}</p>
+          <input
+            required
+            type="password"
+            ref="confirmPasswordInput"
+            v-model="confirmPassword"
+            placeholder="confirm password"
+            @keyup.enter="signUp"
+          />
+        </div>
+        <ul class="container--flex-vertical">
+          <li
+            v-for="(rule, index) in passwordRules"
+            :key="index"
+            v-bind:class="{ 'txt--primary': rule.isValid }"
+          >
+            <div :ref="`label_${index}`">
+              <div class="txt--large">{{rule.label}}</div>
+              <div class="txt--small">{{rule.subtitle}}</div>
+            </div>
+          </li>
+        </ul>
         <button class="btn btn--primary txt--fancy" @click="signUp">Sign Up</button>
       </div>
     </div>
@@ -40,6 +63,36 @@
 <script>
 import { firebase } from '@firebase/app';
 import '@firebase/auth';
+
+const upperCaseRegex = /[A-Z]/;
+const lowerCaseRegex = /[a-z]/;
+const specialCharacterRegex = /[!@#\$%\^&\*]/;
+
+const validationRules = [
+  {
+    label: '8+',
+    subtitle: 'characters',
+    validate: (passwordInput, confirmPassInput) => passwordInput.length >= 8
+  },
+  {
+    label: '#',
+    subtitle: 'special',
+    validate: (passwordInput, confirmPassInput) =>
+      specialCharacterRegex.test(passwordInput)
+  },
+  {
+    label: 'A',
+    subtitle: 'uppercase',
+    validate: (passwordInput, confirmPassInput) =>
+      upperCaseRegex.test(passwordInput)
+  },
+  {
+    label: '=',
+    subtitle: 'confirmed',
+    validate: (passwordInput, confirmPassInput) =>
+      passwordInput === confirmPassInput
+  }
+];
 
 export default {
   data() {
@@ -60,13 +113,25 @@ export default {
       }
     };
   },
+  computed: {
+    passwordRules() {
+      return validationRules.map(rule => {
+        return {
+          label: rule.label,
+          subtitle: rule.subtitle,
+          isValid: rule.validate(this.password, this.confirmPassword),
+          labelWidth: rule.labelWidth
+        };
+      });
+    }
+  },
   methods: {
     signUp: function() {
       console.log('chekcing inputs first');
       // FORM VALIDATION
       const emailRegex = new RegExp(this.regexPatterns.email);
       if (!emailRegex.test(this.email)) {
-        this.errors.email = 'This does not look like a valid email address.';
+        this.errors.email = 'invalid email';
         this.$refs['emailInput'].focus();
       } else {
         this.errors.email = null;
@@ -75,14 +140,13 @@ export default {
       const passRegex = new RegExp(this.regexPatterns.password);
       if (!passRegex.test(this.password)) {
         this.$refs['passwordInput'].focus();
-        this.errors.password =
-          'Do yourself a favour and have at least 8 character-password which include an uppercase, a lowercase letter, and a number.';
+        this.errors.password = 'observe password requirements below';
       } else {
         this.errors.password = null;
       }
       if (this.password != this.confirmPassword) {
         this.$refs['confirmPasswordInput'].focus();
-        this.errors.confirmPassword = "Passwords don't match.";
+        this.errors.confirmPassword = "passwords don't match.";
       } else {
         this.errors.confirmPassword = null;
       }

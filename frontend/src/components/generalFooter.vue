@@ -4,10 +4,13 @@
     <div>
       <p>the very important pages</p>
       <p>
-        <router-link to="/sign-up">imprint</router-link>
+        <router-link class="link" to="/sign-up">imprint</router-link>
       </p>
       <p>
-        <router-link to="/sign-up">privacy policy</router-link>
+        <router-link class="link" to="/sign-up">privacy policy</router-link>
+      </p>
+      <p>
+        <span class="link" href="https://github.com/hooannaeis/project-polar" target="blank">GitHub Repo</span>
       </p>
     </div>
     <div>

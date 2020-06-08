@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container--full-height container--flex-vertical">
     <div class="card__container">
       <h2 class="txt--fancy txt--primary">Welcome back, mate</h2>
       <p class="txt--warning" v-if="errors.authFail">{{errors.authFail}}</p>
