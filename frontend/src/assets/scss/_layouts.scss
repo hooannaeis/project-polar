@@ -114,9 +114,10 @@ html {
   display: grid;
   &--header-col {
     grid-template-columns: 1fr 3fr;
-    @media (max-width: $breakPhone) {
-      grid-template-columns: 1fr;
-    }
+  }
+  &--hero-nav {
+    grid-template-columns: 1fr 8fr 1fr;
+    align-items: center;
   }
   &--two-col {
     grid-template-columns: 1fr 1fr;
@@ -146,7 +147,6 @@ html {
 
 .card {
   &__container {
-    width: 100%;
     max-width: $breakPhone;
     background-color: $colorBright;
     color: $colorDark;
@@ -165,10 +165,6 @@ html {
     padding: 0.5rem;
     margin: 0 1rem 0.5rem 0.5rem;
     cursor: pointer;
-    &:hover {
-      background-color: $colorDarkDark;
-      color: $colorDark;
-    }
   }
 }
 
@@ -247,7 +243,6 @@ html {
     display: block;
     position: relative;
     margin: 0 1rem;
-    margin-bottom: 0.5rem;
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;

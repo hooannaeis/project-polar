@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import store from '../store';
 import VueRouter from 'vue-router';
-import { firebase } from '@firebase/app';
 
 Vue.use(VueRouter);
 
@@ -26,6 +25,16 @@ const routes = [
     path: '/log-in',
     name: 'Log In',
     component: () => import(/* webpackChunkName: "about" */ '../views/logIn.vue')
+  },
+  {
+    path: '/imprint',
+    name: 'Imprint',
+    component: () => import(/* webpackChunkName: "about" */ '../views/imprint.vue')
+  },
+  {
+    path: '/privacy-policy',
+    name: 'Privacy Policy',
+    component: () => import(/* webpackChunkName: "about" */ '../views/privacyPolicy.vue')
   },
   {
     path: '/my',

@@ -1,5 +1,5 @@
 <template>
-  <transition-group name="grow" tag="p">
+  <transition-group name="grow" tag="p" style="white-space: nowrap; line-height: 1rem; padding:0;margin:0;">
     <span
       v-for="(randChar, index) in randomCharacters"
       v-bind:key="randChar+index"

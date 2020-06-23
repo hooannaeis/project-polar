@@ -2,56 +2,53 @@
   <div>
     <!-- card in display mode -->
     <div class="card__container" style="position: relative;" v-if="!isEditable">
-      <span class="btn--ghost-bright pos--abs pos--tr" @click="enterEditMode">
-        <iconBase iconFillColor="white" icon-name="pen" width="16">
+      <span class="pos--abs pos--tr" @click="enterEditMode">
+        <iconBase iconColor="#0C0F0A" iconFillColor="transparent" icon-name="pen" width="16">
           <iconPen />
         </iconBase>
       </span>
       <h2 class="txt--fancy">{{identity.identityName}}</h2>
-      <identityElement>
-        <span slot="pin-parent" class="grid grid--header-col">
-          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="iconMail" width="16">
-            <iconMail />
-          </iconBase>
-          <copyText :inputText="identity.receiveMail"></copyText>
-        </span>
-        <span slot="pin-one" class="container--flex-vertical">
-          redirect
-          <label class="checkbox__container">
-            <input type="checkbox" id="checkbox" v-model="identity.redirectActive" disabled />
-            <span class="checkbox__checkmark"></span>
-          </label>
-        </span>
-        <span slot="pin-two">
-          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="iconCopy" width="16">
-            <iconCopy />
-          </iconBase>
-        </span>
-      </identityElement>
+      <span slot="pin-parent" class="grid grid--hero-nav card__textbox">
+        <iconBase
+          iconColor="#0C0F0A"
+          iconFillColor="transparent"
+          strokeWidth="4px"
+          icon-name="iconMail"
+          width="16"
+        >
+          <iconMail />
+        </iconBase>
+        <copyText :inputText="identity.receiveMail"></copyText>
+        <label class="checkbox__container" style="justify-self: end;">
+          <input type="checkbox" id="checkbox" v-model="identity.redirectActive" disabled />
+          <span class="checkbox__checkmark"></span>
+        </label>
+      </span>
 
-      <identityElement>
-        <span slot="pin-parent" class="grid grid--header-col">
-          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="lock" width="16">
-            <iconLock />
-          </iconBase>
-          <copyText :inputText="identity.password" :textIsVisible="showPassword"></copyText>
-        </span>
-        <span slot="pin-one" @click="togglePasswordVisibility">
-          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="iconEye" width="16">
+      <span slot="pin-parent" class="grid grid--hero-nav card__textbox">
+        <iconBase
+          iconColor="#0C0F0A"
+          iconFillColor="transparent"
+          strokeWidth="4px"
+          icon-name="lock"
+          width="16"
+        >
+          <iconLock />
+        </iconBase>
+        <copyText :inputText="identity.password" :textIsVisible="showPassword"></copyText>
+        <span slot="pin-one" @click="togglePasswordVisibility" style="justify-self: end; margin: 0 0.5rem;">
+          <iconBase
+            iconColor="#0C0F0A"
+            iconFillColor="transparent"
+            strokeWidth="4px"
+            icon-name="iconEye"
+            width="16"
+          >
             <iconEyeOpen v-if="showPassword" />
             <iconEyeClosed v-else />
           </iconBase>
         </span>
-        <iconBase
-          slot="pin-two"
-          iconFillColor="transparent"
-          strokeWidth="4px"
-          icon-name="iconCopy"
-          width="16"
-        >
-          <iconCopy />
-        </iconBase>
-      </identityElement>
+      </span>
     </div>
 
     <!-- card in edit mode -->
@@ -72,10 +69,16 @@
         :placeholder="placeholderIdentity.identityName"
         v-model="identity.identityName"
       />
-      <span class="btn--ghost-bright pos--abs pos--tr" @click="leaveCreateMode">X</span>
+      <span class="pos--abs pos--tr" @click="leaveCreateMode">X</span>
       <identityElement>
-        <span slot="pin-parent" class="grid grid--header-col">
-          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="iconMail" width="16">
+        <span slot="pin-parent" class="grid grid--hero-nav">
+          <iconBase
+            iconColor="#0C0F0A"
+            iconFillColor="transparent"
+            strokeWidth="4px"
+            icon-name="iconMail"
+            width="16"
+          >
             <iconMail />
           </iconBase>
           <div v-if="mailLoading">
@@ -93,15 +96,28 @@
           </label>
         </span>
         <span slot="pin-two" @click="setRandomMail">
-          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="shuffle" width="16">
+          create new
+          <iconBase
+            iconColor="#0C0F0A"
+            iconFillColor="transparent"
+            strokeWidth="4px"
+            icon-name="shuffle"
+            width="16"
+          >
             <iconShuffle />
           </iconBase>
         </span>
       </identityElement>
       <!-- PASSWORD ELEMENT -->
       <identityElement>
-        <span slot="pin-parent" class="grid grid--header-col">
-          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="lock" width="16">
+        <span slot="pin-parent" class="grid grid--hero-nav">
+          <iconBase
+            iconColor="#0C0F0A"
+            iconFillColor="transparent"
+            strokeWidth="4px"
+            icon-name="lock"
+            width="16"
+          >
             <iconLock />
           </iconBase>
           <div v-if="passLoading">
@@ -112,13 +128,27 @@
           </div>
         </span>
         <span slot="pin-one" @click="togglePasswordVisibility">
-          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="iconEye" width="16">
+          show
+          <iconBase
+            iconColor="#0C0F0A"
+            iconFillColor="transparent"
+            strokeWidth="4px"
+            icon-name="iconEye"
+            width="16"
+          >
             <iconEyeOpen v-if="showPassword" />
             <iconEyeClosed v-else />
           </iconBase>
         </span>
         <span @click="setRandomPassword" slot="pin-two">
-          <iconBase iconFillColor="transparent" strokeWidth="4px" icon-name="shuffle" width="16">
+          create new
+          <iconBase
+            iconColor="#0C0F0A"
+            iconFillColor="transparent"
+            strokeWidth="4px"
+            icon-name="shuffle"
+            width="16"
+          >
             <iconShuffle />
           </iconBase>
         </span>
@@ -126,7 +156,7 @@
       <!-- PASSWORD ELEMENT -->
 
       <div class="container--flex-vertical">
-        <button class="btn btn--ghost-bright" @click="initializeDelete">delete</button>
+        <button class="btn btn--ghost-dark" @click="initializeDelete">delete</button>
         <button class="btn btn--primary" @click="setIdentity">save</button>
       </div>
       <areYouSureModal
@@ -145,7 +175,6 @@ import identityElement from './identityElement';
 import iconBase from './creatives/iconBase';
 import iconPen from './creatives/iconPen';
 import iconMail from './creatives/iconMail';
-import iconCopy from './creatives/iconCopy';
 import iconEyeClosed from './creatives/iconEyeClosed';
 import iconEyeOpen from './creatives/iconEyeOpen';
 import iconShuffle from './creatives/iconShuffle';
@@ -162,7 +191,6 @@ export default {
     identityElement,
     iconBase,
     iconPen,
-    iconCopy,
     iconMail,
     iconEyeClosed,
     iconEyeOpen,

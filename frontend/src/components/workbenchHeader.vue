@@ -2,10 +2,11 @@
   <div class="container--flex-vertical container--header">
     <span class="dropdown__container">
       <logo width="60" height="40"></logo>
-      <button @click="toggleDropdown" class="btn btn--ghost-dark">{{user.data.displayName}}</button>
+      <button @click="toggleDropdown" class="btn btn--ghost-bright">{{user.data.displayName}}</button>
       <div class="dropdown__content" :class="{'show': showDropdown}">
-        <router-link to="/my/account" tag="button" class="btn btn--ghost-dark btn--mini">My Account</router-link>
-        <button class="btn btn--warning btn--mini " @click="logout">log out</button>
+        <router-link @click="toggleDropdown" v-if="$route.path.includes('my/account')" to="/my/workbench" tag="button" class="btn btn--ghost-bright btn--mini">My Workbench</router-link>
+        <router-link @click="toggleDropdown" v-else to="/my/account" tag="button" class="btn btn--ghost-bright btn--mini">My Account</router-link>
+        <button class="btn btn--warning " @click="logout">log out</button>
       </div>
     </span>
   </div>

@@ -43,7 +43,6 @@ export default {
       const identities = db
         .collection('identities')
         .where('userId', '==', store.getters.userId);
-
       return {
         identities
       };

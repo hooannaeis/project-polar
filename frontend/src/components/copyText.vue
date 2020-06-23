@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <span class="txt--single-lh">
     <span @click="copyText" id="displayText">{{ displayText }}</span>
     <span class="invisible" ref="copyText">{{ inputText }}</span>
   </span>

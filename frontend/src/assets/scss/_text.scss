@@ -106,4 +106,7 @@ input[type='text']:focus {
   &--fancy {
     font-family: 'Lobster', cursive;
   }
+  &--single-lh {
+    line-height: 1em;
+  }
 }

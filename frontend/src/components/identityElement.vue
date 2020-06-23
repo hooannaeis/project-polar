@@ -5,7 +5,7 @@
         default text
       </slot>
     </div>
-    <div class="container--flex-vertical container--flex-end">
+    <div class="container--flex-vertical">
       <span class="card__pinhead">
         <slot name="pin-one">def 1</slot>
       </span>

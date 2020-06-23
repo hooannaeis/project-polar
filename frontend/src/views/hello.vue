@@ -23,9 +23,7 @@
     <section>
       <h2 class="txt--fancy txt--warning">Oooooooor</h2>
       <p>you can also take a look at this app's GitHub and maybe host it yourself 😁</p>
-      <span class="link" href="https://github.com/hooannaeis/project-polar" target="blank">
-        GitHub repository
-      </span>
+      <a class="link" href="https://github.com/hooannaeis/project-polar" target="blank">GitHub Repo</a>
     </section>
   </div>
 </template>
