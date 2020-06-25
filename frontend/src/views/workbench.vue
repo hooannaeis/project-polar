@@ -1,6 +1,5 @@
 <template>
   <div>
-    <createIdentity />
     <div v-if="identities.length" class="container--grid">
       <section v-for="identity in identities" :key="identity['.key']">
         <identityCard :identity="identity" />
@@ -12,8 +11,6 @@
 
 <script>
 import identityCard from '../components/identityCard';
-import createIdentity from '../components/createIdentity';
-
 import { firebase } from '@firebase/app';
 import '@firebase/auth';
 
@@ -22,12 +19,12 @@ import store from '../store';
 
 export default {
   components: {
-    identityCard,
-    createIdentity
+    identityCard
   },
   data() {
     return {
       identities: [],
+      
       exampleIdentity: {
         destinationMail: '',
         identityName: 'No identities available',

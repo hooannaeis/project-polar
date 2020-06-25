@@ -36,7 +36,11 @@
           <iconLock />
         </iconBase>
         <copyText :inputText="identity.password" :textIsVisible="showPassword"></copyText>
-        <span slot="pin-one" @click="togglePasswordVisibility" style="justify-self: end; margin: 0 0.5rem;">
+        <span
+          slot="pin-one"
+          @click="togglePasswordVisibility"
+          style="justify-self: end; margin: 0 0.5rem;"
+        >
           <iconBase
             iconColor="#0C0F0A"
             iconFillColor="transparent"
@@ -53,7 +57,7 @@
 
     <!-- card in edit mode -->
     <div
-      class="card__container"
+      class="card__container bg--g-primary-bright"
       style="position: relative;"
       v-else
       @keyup.esc="leaveCreateMode"
@@ -69,7 +73,7 @@
         :placeholder="placeholderIdentity.identityName"
         v-model="identity.identityName"
       />
-      <span class="pos--abs pos--tr" @click="leaveCreateMode">X</span>
+      <button class="btn btn--warning btn--mini pos--abs pos--tr" @click="leaveCreateMode">X</button>
       <identityElement>
         <span slot="pin-parent" class="grid grid--hero-nav">
           <iconBase
@@ -82,7 +86,10 @@
             <iconMail />
           </iconBase>
           <div v-if="mailLoading">
-            <shufflingCharacters maxCharacterCount="15" :startText="identity.receiveMail" />
+            <span class="container--flex-vertical">
+              generating mail...
+              <shufflingCharacters startText="....." />
+            </span>
           </div>
           <div v-else>
             <copyText :inputText="identity.receiveMail"></copyText>
@@ -156,7 +163,7 @@
       <!-- PASSWORD ELEMENT -->
 
       <div class="container--flex-vertical">
-        <button class="btn btn--ghost-dark" @click="initializeDelete">delete</button>
+        <button v-if="isDeleteable" class="btn btn--ghost-dark" @click="initializeDelete">delete</button>
         <button class="btn btn--primary" @click="setIdentity">save</button>
       </div>
       <areYouSureModal
@@ -203,11 +210,12 @@ export default {
       showPassword: false,
       showDeleteModal: false,
       isEditable: this.isEditableProp,
+      isDeleteable: this.isDeleteableProp,
       mailLoading: false,
       passLoading: false,
       placeholderIdentity: {
         destinationMail: 'your@email.com',
-        identityName: 'Identity Name',
+        identityName: 'Identity Website/App',
         password: 'examplePassword',
         receiveMail: 'randommail@identity.land',
         redirectActive: true
@@ -221,6 +229,10 @@ export default {
     isEditableProp: {
       type: Boolean,
       default: false
+    },
+    isDeleteableProp: {
+      type: Boolean,
+      default: true
     },
     identity: {
       type: Object,

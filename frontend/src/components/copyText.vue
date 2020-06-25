@@ -1,6 +1,9 @@
 <template>
-  <span class="txt--single-lh">
-    <span @click="copyText" id="displayText">{{ displayText }}</span>
+  <span class="txt--single-lh pos--rel">
+    <span @click="copyText" id="displayText">
+      {{ displayText }}
+      <span class="pos--abs pos--center z--2" id="hoverText">copy</span>
+    </span>
     <span class="invisible" ref="copyText">{{ inputText }}</span>
   </span>
 </template>
@@ -123,10 +126,31 @@ export default {
   position: absolute;
 }
 
+#hoverText {
+  color: red;
+  display: none;
+  opacity: 0;
+  transition: opacity 2s;
+}
+
 #displayText {
   &:hover {
     background-color: transparentize($color: darkgrey, $amount: 0.8);
     cursor: pointer;
+    & #hoverText {
+      color: white;
+      background: black;
+      opacity: 0.75;
+      display: block;
+      width: 100%;
+    }
+  }
+  &:active {
+    & #hoverText {
+      opacity: 1;
+      font-weight: bold;
+      transform: scale(1.05);
+    }
   }
 }
 </style>

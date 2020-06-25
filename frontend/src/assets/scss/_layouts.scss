@@ -25,19 +25,31 @@ html {
   &__container {
     position: fixed;
     z-index: 2;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.5;
+    background: $colorDark;
   }
   &__card {
     position: absolute;
-    border: 2px solid red;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    z-index:3;
+    top: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    margin: auto;
   }
   &__background {
-    width: 100vw;
-    height: 100vh;
-    background: $colorDark;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     opacity: 0.5;
+    background: $colorDark;
   }
 }
 
@@ -63,6 +75,12 @@ html {
     bottom: 0;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+  &--center {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
   }
 }
 
@@ -288,5 +306,11 @@ html {
       position: absolute;
       display: none;
     }
+  }
+}
+
+.bg {
+  &--g-primary-bright {
+    background: $gradientPrimaryBright;
   }
 }

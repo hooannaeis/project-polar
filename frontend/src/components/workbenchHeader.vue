@@ -1,14 +1,27 @@
 <template>
   <div class="container--flex-vertical container--header">
-    <span class="dropdown__container">
+    <span class="dropdown__container container--flex-vertical">
       <logo width="60" height="40"></logo>
       <button @click="toggleDropdown" class="btn btn--ghost-bright">{{user.data.displayName}}</button>
-      <div class="dropdown__content" :class="{'show': showDropdown}">
-        <router-link @click="toggleDropdown" v-if="$route.path.includes('my/account')" to="/my/workbench" tag="button" class="btn btn--ghost-bright btn--mini">My Workbench</router-link>
-        <router-link @click="toggleDropdown" v-else to="/my/account" tag="button" class="btn btn--ghost-bright btn--mini">My Account</router-link>
-        <button class="btn btn--warning " @click="logout">log out</button>
-      </div>
     </span>
+    <div class="dropdown__content" :class="{'show': showDropdown}">
+      <router-link
+        @click="toggleDropdown"
+        v-if="$route.path.includes('my/account')"
+        to="/my/workbench"
+        tag="button"
+        class="btn btn--ghost-bright btn--mini"
+      >My Workbench</router-link>
+      <router-link
+        @click="toggleDropdown"
+        v-else
+        to="/my/account"
+        tag="button"
+        class="btn btn--ghost-bright btn--mini"
+      >My Account</router-link>
+      <button class="btn btn--warning" @click="logout">log out</button>
+    </div>
+    <createIdentity />
   </div>
 </template>
 
@@ -18,10 +31,12 @@ import { firebase } from '@firebase/app';
 import '@firebase/auth';
 
 import logo from './creatives/logo';
+import createIdentity from '../components/createIdentity';
 
 export default {
   components: {
-    logo
+    logo,
+    createIdentity
   },
   data() {
     return {
@@ -30,7 +45,7 @@ export default {
     };
   },
   methods: {
-    logout: function() {
+    logout() {
       firebase
         .auth()
         .signOut()
@@ -38,8 +53,13 @@ export default {
           this.$router.push({ path: '/log-in' });
         });
     },
-    toggleDropdown: function() {
+    toggleDropdown() {
       this.showDropdown = !this.showDropdown;
+    },
+    closeDropdown(e) {
+      if (!this.$el.contains(e.target)) {
+        this.showDropdown = false;
+      }
     }
   },
   computed: {
@@ -47,6 +67,13 @@ export default {
     ...mapGetters({
       user: 'user'
     })
+  },
+  // used to allow the dropdown to vanish if clicked outside of it
+  mounted() {
+    document.addEventListener('click', this.closeDropdown);
+  },
+  beforeDestroy() {
+    document.removeEventListener('click', this.closeDropdown);
   }
 };
 </script>
