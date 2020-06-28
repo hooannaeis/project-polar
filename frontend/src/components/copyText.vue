@@ -140,7 +140,7 @@ export default {
     & #hoverText {
       color: white;
       background: black;
-      opacity: 0.75;
+      opacity: 0.5;
       display: block;
       width: 100%;
     }

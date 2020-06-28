@@ -2,7 +2,7 @@
   <div class="container--full-height container--flex-vertical">
     <div class="card__container">
       <h2 class="txt--fancy txt--primary">welcome aboard, mate</h2>
-      <div>
+      <div class="container--flex-horizontal">
         <div class="pos--rel">
           <p class="txt--warning txt--small pos--abs pos--tr" v-if="errors.email">{{errors.email}}</p>
           <input

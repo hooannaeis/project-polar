@@ -3,7 +3,7 @@
     <div class="card__container">
       <h2 class="txt--fancy txt--primary">Welcome back, mate</h2>
       <p class="txt--warning" v-if="errors.authFail">{{errors.authFail}}</p>
-      <div>
+      <div class="container--flex-horizontal">
         <input type="email" required v-model="email" placeholder="email@domain.com" />
         <input
           type="password"

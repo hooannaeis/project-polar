@@ -1,5 +1,5 @@
 <template>
-  <div class="container--header">
+  <div class="container--flex-vertical container--header">
     <div class="grid grid--header-col mg--auto">
       <router-link to="/" class="container--flex-vertical">
         <logo width="60" height="40"></logo>

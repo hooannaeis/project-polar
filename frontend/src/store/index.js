@@ -1,18 +1,30 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import createPersistedState from "vuex-persistedstate";
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   plugins: [createPersistedState()],
   state: {
+    identities: [null],
     isLoggedIn: false,
+    searchTerm: null,
     user: {
       data: null
     }
   },
   getters: {
+    identities(state) {
+      return state.identities;
+    },
+    filteredIdentities(state) {
+      const search = state.searchTerm.trim().toLowerCase();
+      if (!search.length) {
+        return state.identities;
+      }
+      return state.identities.filter(item => item.identityName.toLowerCase().indexOf(search) > -1);
+    },
     user(state) {
       return state.user;
     },
@@ -33,9 +45,21 @@ export default new Vuex.Store({
     },
     SET_USER(state, data) {
       state.user.data = data;
+    },
+    SET_IDENTITIES(state, data) {
+      state.identities = data;
+    },
+    UPDATE_SEARCH_TERM(state, value) {
+      state.searchTerm = value;
     }
   },
   actions: {
+    setIdentities({ commit }, data) {
+      commit('SET_IDENTITIES', data);
+    },
+    updateSearchTerm({ commit }, data) {
+      commit('UPDATE_SEARCH_TERM', data);
+    },
     fetchUser({ commit }, user) {
       commit('SET_LOGGED_IN', user !== null);
       if (user) {

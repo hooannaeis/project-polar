@@ -11,9 +11,12 @@ html {
   }
   &__content {
     position: absolute;
-    background: $colorDark;
+    background: $colorDarkBright;
     z-index: 1;
     display: none;
+    top: 100%;
+    left: 0;
+    right: 0;
   }
 }
 
@@ -34,7 +37,7 @@ html {
   }
   &__card {
     position: absolute;
-    z-index:3;
+    z-index: 3;
     top: 1rem;
     bottom: 1rem;
     left: 1rem;
@@ -100,6 +103,13 @@ html {
     flex-wrap: wrap;
     justify-content: space-around;
   }
+  &--flex-horizontal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
   &--flex-end {
     justify-content: flex-end;
   }
@@ -111,7 +121,7 @@ html {
   }
   &--grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     grid-gap: 1rem;
     @media (min-width: $breakPhone) {
       padding: 2rem;
@@ -312,5 +322,11 @@ html {
 .bg {
   &--g-primary-bright {
     background: $gradientPrimaryBright;
+  }
+}
+
+.border {
+  &--bt-bright {
+    border-bottom: 1px solid $colorBright !important;
   }
 }
