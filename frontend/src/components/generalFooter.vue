@@ -10,7 +10,7 @@
         <router-link class="link" to="/privacy-policy">privacy policy</router-link>
       </p>
       <p>
-        <span class="link" href="https://github.com/hooannaeis/project-polar" target="blank">GitHub Repo</span>
+        <a class="link" href="https://github.com/hooannaeis/project-polar" target="blank">GitHub Repo</a>
       </p>
     </div>
     <div>

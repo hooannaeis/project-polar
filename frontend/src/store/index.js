@@ -19,11 +19,15 @@ export default new Vuex.Store({
       return state.identities;
     },
     filteredIdentities(state) {
-      const search = state.searchTerm.trim().toLowerCase();
-      if (!search.length) {
+      try {
+        const search = state.searchTerm.trim().toLowerCase();
+        if (!search.length) {
+          return state.identities;
+        }
+        return state.identities.filter(item => item.identityName.toLowerCase().indexOf(search) > -1);
+      } catch(e) {
         return state.identities;
       }
-      return state.identities.filter(item => item.identityName.toLowerCase().indexOf(search) > -1);
     },
     user(state) {
       return state.user;
