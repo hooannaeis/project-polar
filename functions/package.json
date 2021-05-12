@@ -18,7 +18,7 @@
     "firebase-admin": "^8.6.0",
     "firebase-functions": "^3.3.0",
     "mailparser": "^2.7.7",
-    "nodemailer": "^6.4.8",
+    "nodemailer": "^6.4.16",
     "random": "^2.2.0",
     "seedrandom": "^3.0.5"
   },
